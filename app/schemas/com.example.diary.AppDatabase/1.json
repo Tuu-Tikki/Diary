@@ -1,0 +1,46 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "f861489e4c36ed2f5602afddc611590f",
+    "entities": [
+      {
+        "tableName": "BloodPressureData",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`bloodPressureDataId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `systolicPressure` INTEGER NOT NULL, `diastolicPressure` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "bloodPressureDataId",
+            "columnName": "bloodPressureDataId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "systolicPressure",
+            "columnName": "systolicPressure",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "diastolicPressure",
+            "columnName": "diastolicPressure",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "bloodPressureDataId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f861489e4c36ed2f5602afddc611590f')"
+    ]
+  }
+}

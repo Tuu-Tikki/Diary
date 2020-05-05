@@ -1,0 +1,64 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 4,
+    "identityHash": "308ff67494f6f3dcdc34f4676d2ee593",
+    "entities": [
+      {
+        "tableName": "BloodPressureData",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`bloodPressureDataId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `dateOfRecord` TEXT, `timeOfRecord` TEXT, `systolicPressure` INTEGER NOT NULL, `diastolicPressure` INTEGER NOT NULL, `pulse` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "bloodPressureDataId",
+            "columnName": "bloodPressureDataId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dateOfRecord",
+            "columnName": "dateOfRecord",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "timeOfRecord",
+            "columnName": "timeOfRecord",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "systolicPressure",
+            "columnName": "systolicPressure",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "diastolicPressure",
+            "columnName": "diastolicPressure",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pulse",
+            "columnName": "pulse",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "bloodPressureDataId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '308ff67494f6f3dcdc34f4676d2ee593')"
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Diary</string>
+    <string name="add_new_data_button_name">Add new record</string>
+    <string name="new_systolic_pressure">Systolic blood pressure:</string>
+    <string name="new_diastolic_pressure">Diastolic blood pressure:</string>
+    <string name="save_button">Save</string>
+    <string name="standart_systolic_pressure">120</string>
+    <string name="standart_diastolic_pressure">80</string>
+    <string name="time_format">HH:MM</string>
+    <string name="date_format">DD.MM.YYYY</string>
+</resources>
