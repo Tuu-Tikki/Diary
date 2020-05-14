@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import static com.example.diary.AppDatabase.MIGRATION_2_3;
+import static com.example.diary.AppDatabase.MIGRATION_3_4;
 
 public class AddRecord extends AppCompatActivity {
 
@@ -19,24 +20,28 @@ public class AddRecord extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_record);
 
-        //create database
+        //create or open database
         final AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "BloodPressureRecords")
                 .addMigrations(MIGRATION_2_3)
+                .addMigrations(MIGRATION_3_4)
                 .build();
 
         //save new data in database
         final Button button = findViewById(R.id.saveButton);
         final EditText systolicPressure = findViewById(R.id.addSystolicPressure);
         final EditText diastolicPressure = findViewById(R.id.addDiastolicPressure);
-        final EditText dateAndTime = findViewById(R.id.time);
+        final EditText date = findViewById(R.id.date);
+        final EditText time = findViewById(R.id.time);
         final BloodPressureData record = new BloodPressureData();
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 record.systolicPressure = Integer.parseInt(systolicPressure.getText().toString());
                 record.diastolicPressure = Integer.parseInt(diastolicPressure.getText().toString());
-                record.dateAndTime = dateAndTime.getText().toString();
+                record.dateOfRecord = date.getText().toString();
+                record.timeOfRecord = time.getText().toString();
+                //record.pulse = 60;
                 AsyncTask.execute(new Runnable() {
                     @Override
                     public void run() {

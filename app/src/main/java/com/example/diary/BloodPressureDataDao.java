@@ -21,10 +21,6 @@ public interface BloodPressureDataDao {
             "((SELECT MAX(bloodPressureDataId) FROM BloodPressureData)-:number)")
     public BloodPressureData getCertainRecord(int number);
 
-    @Query("SELECT dateAndTime FROM BloodPressureData WHERE BloodPressureDataId = " +
-            "(SELECT MAX(bloodPressureDataId) FROM BloodPressureData)")
-    String getDateTimeOfLastRecord();
-
     @Insert
     void insert(BloodPressureData record);
 
