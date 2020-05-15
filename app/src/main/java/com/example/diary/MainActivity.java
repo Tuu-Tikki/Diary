@@ -11,13 +11,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.example.diary.AppDatabase.MIGRATION_2_3;
 import static com.example.diary.AppDatabase.MIGRATION_3_4;
 
 public class MainActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
+    List<BloodPressureData> records;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,20 @@ public class MainActivity extends AppCompatActivity {
                 .addMigrations(MIGRATION_2_3)
                 .addMigrations(MIGRATION_3_4)
                 .build();
+
+        final RecyclerView rvRecords = (RecyclerView) findViewById(R.id.recordsDisplay);
+
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                records = db.bloodPressureDataDao().getAll();
+
+                AdapterForRecordsDisplay adapter = new AdapterForRecordsDisplay(records);
+
+                rvRecords.setAdapter(adapter);
+
+                rvRecords.setLayoutManager(new LinearLayoutManager(MainActivity.this));}
+        });
 
         final Button button = findViewById(R.id.addButton);
         button.setOnClickListener(new View.OnClickListener() {
