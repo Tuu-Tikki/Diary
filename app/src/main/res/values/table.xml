@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="table_border">2dp</dimen>
+    <dimen name="table_border_half">1dp</dimen>
+    <dimen name="table_padding">8dp</dimen>
     <string name="column_date">Date</string>
     <string name="column_time">Time</string>
     <string name="column_pressure">Pressure</string>

@@ -10,7 +10,7 @@ import java.util.List;
 //Data Access Objects (Dao): Contains the methods used for accessing the database.
 @Dao
 public interface BloodPressureDataDao {
-    @Query("SELECT * FROM BloodPressureData")
+    @Query("SELECT * FROM BloodPressureData ORDER BY bloodPressureDataId DESC")
     List<BloodPressureData> getAll();
 
     @Query("SELECT * FROM BloodPressureData WHERE BloodPressureDataId = " +
