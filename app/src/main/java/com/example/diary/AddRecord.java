@@ -1,6 +1,7 @@
 package com.example.diary;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
 import android.content.Intent;
@@ -20,6 +21,13 @@ public class AddRecord extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_record);
 
+        //custimized toolbar
+        Toolbar addToolbar = (Toolbar) findViewById(R.id.add_record_toolbar);
+        setSupportActionBar(addToolbar);
+
+        //return arrow on the toolbar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         //create or open database
         final AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "BloodPressureRecords")
@@ -33,6 +41,7 @@ public class AddRecord extends AppCompatActivity {
         final EditText diastolicPressure = findViewById(R.id.addDiastolicPressure);
         final EditText date = findViewById(R.id.date);
         final EditText time = findViewById(R.id.time);
+        final EditText pulse = findViewById(R.id.addPulse);
         final BloodPressureData record = new BloodPressureData();
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,7 +50,7 @@ public class AddRecord extends AppCompatActivity {
                 record.diastolicPressure = Integer.parseInt(diastolicPressure.getText().toString());
                 record.dateOfRecord = date.getText().toString();
                 record.timeOfRecord = time.getText().toString();
-                //record.pulse = 60;
+                record.pulse = Integer.parseInt(pulse.getText().toString());
                 AsyncTask.execute(new Runnable() {
                     @Override
                     public void run() {

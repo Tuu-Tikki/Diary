@@ -6,6 +6,7 @@
     <string name="save_button">Save</string>
     <string name="standart_systolic_pressure">120</string>
     <string name="standart_diastolic_pressure">80</string>
+    <string name="standart_pulse">60-100</string>
     <string name="time_format">HH:MM</string>
     <string name="date_format">DD.MM.YYYY</string>
     <string name="new_pulse">Pulse:</string>

@@ -10,8 +10,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import androidx.appcompat.widget.Toolbar;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.diary.AppDatabase.MIGRATION_2_3;
@@ -24,6 +24,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //customized Toolbar
+        Toolbar mainToolbar = (Toolbar) findViewById(R.id.main_activity_toolbar);
+        setSupportActionBar(mainToolbar);
 
         //create or open database
         final AppDatabase db = Room.databaseBuilder(getApplicationContext(),
