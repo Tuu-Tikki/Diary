@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import static com.example.diary.AppDatabase.MIGRATION_2_3;
 import static com.example.diary.AppDatabase.MIGRATION_3_4;
 
@@ -35,14 +38,24 @@ public class AddRecord extends AppCompatActivity {
                 .addMigrations(MIGRATION_3_4)
                 .build();
 
-        //save new data in database
+
         final Button button = findViewById(R.id.saveButton);
         final EditText systolicPressure = findViewById(R.id.addSystolicPressure);
         final EditText diastolicPressure = findViewById(R.id.addDiastolicPressure);
+
+        //prefill date and time fields
         final EditText date = findViewById(R.id.date);
         final EditText time = findViewById(R.id.time);
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        date.setText(dateFormat.format(calendar.getTime()));
+        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
+        time.setText(timeFormat.format(calendar.getTime()));
+
         final EditText pulse = findViewById(R.id.addPulse);
         final BloodPressureData record = new BloodPressureData();
+
+        //save new record in db
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
