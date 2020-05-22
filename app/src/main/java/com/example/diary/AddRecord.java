@@ -4,12 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -38,24 +43,62 @@ public class AddRecord extends AppCompatActivity {
                 .addMigrations(MIGRATION_3_4)
                 .build();
 
-
-        final Button button = findViewById(R.id.saveButton);
-        final EditText systolicPressure = findViewById(R.id.addSystolicPressure);
-        final EditText diastolicPressure = findViewById(R.id.addDiastolicPressure);
-
         //prefill date and time fields
         final EditText date = findViewById(R.id.date);
         final EditText time = findViewById(R.id.time);
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        final Calendar calendar = Calendar.getInstance();
+        String dateFormatString = "dd.MM.yyyy";
+        String timeFormatString = "HH:mm";
+        final SimpleDateFormat dateFormat = new SimpleDateFormat(dateFormatString);
         date.setText(dateFormat.format(calendar.getTime()));
-        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
+        final SimpleDateFormat timeFormat = new SimpleDateFormat(timeFormatString);
         time.setText(timeFormat.format(calendar.getTime()));
 
+        //date is filled with calendar by user
+        final DatePickerDialog.OnDateSetListener dateFromPicker = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                date.setText(dateFormat.format(calendar.getTime()));
+            }
+        };
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(AddRecord.this, dateFromPicker,
+                        calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+        //time is filled by user with TimePickerDialog
+        final TimePickerDialog.OnTimeSetListener timeFromPicker = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                calendar.set(Calendar.MINUTE, minute);
+                time.setText(timeFormat.format(calendar.getTime()));
+            }
+        };
+        time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new TimePickerDialog(AddRecord.this, timeFromPicker, calendar.get(Calendar.HOUR_OF_DAY),
+                        calendar.get(Calendar.MINUTE), true).show();
+            }
+        });
+
+
+        //variables for saving new record
+        final EditText systolicPressure = findViewById(R.id.addSystolicPressure);
+        final EditText diastolicPressure = findViewById(R.id.addDiastolicPressure);
         final EditText pulse = findViewById(R.id.addPulse);
         final BloodPressureData record = new BloodPressureData();
 
         //save new record in db
+        final Button button = findViewById(R.id.saveButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

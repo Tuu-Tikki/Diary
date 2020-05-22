@@ -135,6 +135,8 @@
         android:layout_marginRight="16dp"
         android:hint="@string/time_format"
         android:inputType="time"
+        android:clickable="true"
+        android:focusable="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/date"
         app:layout_constraintTop_toBottomOf="@+id/add_record_toolbar" />
@@ -146,6 +148,8 @@
         android:layout_marginTop="16dp"
         android:hint="@string/date_format"
         android:inputType="date"
+        android:clickable="true"
+        android:focusable="false"
         app:layout_constraintBottom_toBottomOf="@+id/time"
         app:layout_constraintEnd_toEndOf="@+id/systolicPressure"
         app:layout_constraintStart_toStartOf="@+id/systolicPressure"
