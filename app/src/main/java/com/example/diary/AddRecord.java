@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.TimePicker;
 
 import java.text.SimpleDateFormat;
@@ -94,8 +95,21 @@ public class AddRecord extends AppCompatActivity {
         //variables for saving new record
         final EditText systolicPressure = findViewById(R.id.addSystolicPressure);
         final EditText diastolicPressure = findViewById(R.id.addDiastolicPressure);
-        final EditText pulse = findViewById(R.id.addPulse);
         final BloodPressureData record = new BloodPressureData();
+
+        //create NumberPicker for the pulse field
+        final NumberPicker pulse = (NumberPicker) findViewById(R.id.addPulse);
+        pulse.setMaxValue(300);
+        pulse.setMinValue(30);
+        pulse.setValue(70);
+        pulse.setWrapSelectorWheel(false);
+        pulse.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                pulse.setValue(newVal);
+            }
+        });
+
 
         //save new record in db
         final Button button = findViewById(R.id.saveButton);
@@ -106,7 +120,7 @@ public class AddRecord extends AppCompatActivity {
                 record.diastolicPressure = Integer.parseInt(diastolicPressure.getText().toString());
                 record.dateOfRecord = date.getText().toString();
                 record.timeOfRecord = time.getText().toString();
-                record.pulse = Integer.parseInt(pulse.getText().toString());
+                record.pulse = pulse.getValue();
                 AsyncTask.execute(new Runnable() {
                     @Override
                     public void run() {
