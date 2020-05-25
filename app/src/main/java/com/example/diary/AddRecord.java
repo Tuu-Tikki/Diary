@@ -30,7 +30,7 @@ public class AddRecord extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_record);
 
-        //custimized toolbar
+        //customized toolbar
         Toolbar addToolbar = (Toolbar) findViewById(R.id.add_record_toolbar);
         setSupportActionBar(addToolbar);
 

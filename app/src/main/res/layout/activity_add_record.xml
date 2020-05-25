@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -18,140 +19,157 @@
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-    <TextView
-        android:id="@+id/systolicPressure"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center_vertical"
-        android:text="@string/new_systolic_pressure"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/addSystolicPressure"
-        app:layout_constraintEnd_toEndOf="@+id/diastolicPressure"
-        app:layout_constraintStart_toStartOf="@+id/diastolicPressure"
-        app:layout_constraintTop_toBottomOf="@+id/date"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <EditText
-        android:id="@+id/addSystolicPressure"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:gravity="center_vertical"
-        android:hint="@string/standart_systolic_pressure"
-        android:inputType="number"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/systolicPressure"
-        app:layout_constraintTop_toBottomOf="@+id/time" />
-
-    <TextView
-        android:id="@+id/diastolicPressure"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center_vertical"
-        android:text="@string/new_diastolic_pressure"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/addDiastolicPressure"
-        app:layout_constraintEnd_toStartOf="@+id/addDiastolicPressure"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/systolicPressure"
-        app:layout_constraintVertical_bias="0.96" />
-
-    <EditText
-        android:id="@+id/addDiastolicPressure"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:gravity="bottom|center_vertical"
-        android:hint="@string/standart_diastolic_pressure"
-        android:inputType="number"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/diastolicPressure"
-        app:layout_constraintTop_toBottomOf="@+id/addSystolicPressure" />
-
-    <TextView
-        android:id="@+id/pulse"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center_vertical"
-        android:text="@string/new_pulse"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/addPulse"
-        app:layout_constraintEnd_toEndOf="@+id/diastolicPressure"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/diastolicPressure"
-        app:layout_constraintVertical_bias="0.96" />
-
-    <NumberPicker
-        android:id="@+id/addPulse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:gravity="bottom|center_vertical"
-        android:inputType="number"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/diastolicPressure"
-        app:layout_constraintTop_toBottomOf="@+id/addDiastolicPressure" />
-
-    <Button
-        android:id="@+id/saveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/save_button"
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="?attr/actionBarSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pulse"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/add_record_toolbar">
 
-    <EditText
-        android:id="@+id/time"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:hint="@string/time_format"
-        android:inputType="time"
-        android:clickable="true"
-        android:focusable="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/date"
-        app:layout_constraintTop_toBottomOf="@+id/add_record_toolbar" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/date"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="@string/date_format"
-        android:inputType="date"
-        android:clickable="true"
-        android:focusable="false"
-        app:layout_constraintBottom_toBottomOf="@+id/time"
-        app:layout_constraintEnd_toEndOf="@+id/systolicPressure"
-        app:layout_constraintStart_toStartOf="@+id/systolicPressure"
-        app:layout_constraintTop_toBottomOf="@+id/add_record_toolbar" />
+            <TextView
+                android:id="@+id/systolicPressure"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:text="@string/new_systolic_pressure"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/addSystolicPressure"
+                app:layout_constraintEnd_toEndOf="@+id/diastolicPressure"
+                app:layout_constraintStart_toStartOf="@+id/diastolicPressure"
+                app:layout_constraintTop_toBottomOf="@+id/date"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <EditText
+                android:id="@+id/addSystolicPressure"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:gravity="center_vertical"
+                android:hint="@string/standart_systolic_pressure"
+                android:inputType="number"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/systolicPressure"
+                app:layout_constraintTop_toBottomOf="@+id/time" />
+
+            <TextView
+                android:id="@+id/diastolicPressure"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:text="@string/new_diastolic_pressure"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/addDiastolicPressure"
+                app:layout_constraintEnd_toStartOf="@+id/addDiastolicPressure"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/systolicPressure"
+                app:layout_constraintVertical_bias="0.96" />
+
+            <EditText
+                android:id="@+id/addDiastolicPressure"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:gravity="bottom|center_vertical"
+                android:hint="@string/standart_diastolic_pressure"
+                android:inputType="number"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/diastolicPressure"
+                app:layout_constraintTop_toBottomOf="@+id/addSystolicPressure" />
+
+            <TextView
+                android:id="@+id/pulse"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:text="@string/new_pulse"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/addPulse"
+                app:layout_constraintEnd_toEndOf="@+id/diastolicPressure"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/diastolicPressure"
+                app:layout_constraintVertical_bias="0.96" />
+
+            <NumberPicker
+                android:id="@+id/addPulse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:gravity="bottom|center_vertical"
+                android:inputType="number"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/diastolicPressure"
+                app:layout_constraintTop_toBottomOf="@+id/addDiastolicPressure" />
+
+            <Button
+                android:id="@+id/saveButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginRight="32dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/save_button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pulse"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <EditText
+                android:id="@+id/time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:clickable="true"
+                android:focusable="false"
+                android:hint="@string/time_format"
+                android:inputType="time"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/date"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:clickable="true"
+                android:focusable="false"
+                android:hint="@string/date_format"
+                android:inputType="date"
+                app:layout_constraintBottom_toBottomOf="@+id/time"
+                app:layout_constraintEnd_toEndOf="@+id/systolicPressure"
+                app:layout_constraintStart_toStartOf="@+id/systolicPressure"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
