@@ -18,6 +18,95 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toTopOf="@+id/recordsDisplay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_activity_toolbar">
+
+        <TextView
+            android:id="@+id/headerDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/table_border"
+            android:layout_marginTop="@dimen/table_border"
+            android:layout_marginRight="@dimen/table_border_half"
+            android:layout_marginBottom="@dimen/table_border"
+            android:background="@android:color/background_light"
+            android:paddingLeft="@dimen/table_padding"
+            android:paddingRight="@dimen/table_padding"
+            android:text="@string/column_date"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/headerTime"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/headerTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/table_border_half"
+            android:layout_marginTop="@dimen/table_border"
+            android:layout_marginRight="@dimen/table_border_half"
+            android:layout_marginBottom="@dimen/table_border"
+            android:background="@android:color/background_light"
+            android:paddingLeft="@dimen/table_padding"
+            android:paddingRight="@dimen/table_padding"
+            android:text="@string/column_time"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/headerPressure"
+            app:layout_constraintStart_toEndOf="@+id/headerDate"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/headerPressure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/table_border_half"
+            android:layout_marginTop="@dimen/table_border"
+            android:layout_marginRight="@dimen/table_border_half"
+            android:layout_marginBottom="@dimen/table_border"
+            android:background="@android:color/background_light"
+            android:ems="4"
+            android:paddingLeft="@dimen/table_padding_half"
+            android:paddingRight="@dimen/table_padding_half"
+            android:text="@string/column_pressure"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/headerPulse"
+            app:layout_constraintStart_toEndOf="@+id/headerTime"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/headerPulse"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/table_border_half"
+            android:layout_marginTop="@dimen/table_border"
+            android:layout_marginRight="@dimen/table_border"
+            android:layout_marginBottom="@dimen/table_border"
+            android:background="@android:color/background_light"
+            android:paddingLeft="@dimen/table_padding"
+            android:paddingRight="@dimen/table_padding"
+            android:text="@string/column_pulse"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/headerPressure"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <Button
         android:id="@+id/addButton"
         android:layout_width="wrap_content"
@@ -40,7 +129,6 @@
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
@@ -48,6 +136,6 @@
         app:layout_constraintBottom_toTopOf="@+id/addButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_activity_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/header" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

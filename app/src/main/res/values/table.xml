@@ -2,8 +2,9 @@
     <dimen name="table_border">2dp</dimen>
     <dimen name="table_border_half">1dp</dimen>
     <dimen name="table_padding">8dp</dimen>
+    <dimen name="table_padding_half">4dp</dimen>
     <string name="column_date">Date&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
     <string name="column_time">Time&#160;</string>
-    <string name="column_pressure">Result&#160;</string>
+    <string name="column_pressure">Pressure</string>
     <string name="column_pulse">Pulse</string>
 </resources>
