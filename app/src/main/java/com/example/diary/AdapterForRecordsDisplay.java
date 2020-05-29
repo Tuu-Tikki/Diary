@@ -22,12 +22,6 @@ public class AdapterForRecordsDisplay extends
             memberRecords = records;
         }
 
-        /*public class ViewHolder extends RecyclerView.ViewHolder {
-            public ViewHolder(View view){
-                super(view);
-            }
-        }*/
-
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             Context context = parent.getContext();
@@ -38,7 +32,7 @@ public class AdapterForRecordsDisplay extends
                 RecordViewHolder viewHolder = new RecordViewHolder(recordView);
                 return viewHolder;
             } else if (viewType == TYPE_HEADER) {
-                View headerView = inflater.inflate(R.layout.item_pressure_records, parent, false);
+                View headerView = inflater.inflate(R.layout.header, parent, false);
                 HeaderViewHolder viewHolder = new HeaderViewHolder(headerView);
                 return viewHolder;
             }
@@ -51,13 +45,13 @@ public class AdapterForRecordsDisplay extends
                 HeaderViewHolder headerViewHolder = (HeaderViewHolder) viewHolder;
 
                 TextView textViewDate = headerViewHolder.dateTextView;
-                textViewDate.setText("Date            ");
+                textViewDate.setText(R.string.column_date);
                 TextView textViewTime = headerViewHolder.timeTextView;
-                textViewTime.setText("Time ");
+                textViewTime.setText(R.string.column_time);
                 TextView textViewPressure = headerViewHolder.pressureTextView;
-                textViewPressure.setText("Result ");
+                textViewPressure.setText(R.string.column_pressure);
                 TextView textViewPulse = headerViewHolder.pulseTextView;
-                textViewPulse.setText("Pulse");
+                textViewPulse.setText(R.string.column_pulse);
             }
             else if (viewHolder instanceof RecordViewHolder) {
                 BloodPressureData record = memberRecords.get(position-1);
@@ -98,10 +92,10 @@ public class AdapterForRecordsDisplay extends
             public HeaderViewHolder(View headerView) {
                 super(headerView);
 
-                dateTextView = (TextView) headerView.findViewById(R.id.recordDate);
-                timeTextView = (TextView) headerView.findViewById(R.id.recordTime);
-                pressureTextView = (TextView) headerView.findViewById(R.id.recordPressure);
-                pulseTextView = (TextView) headerView.findViewById(R.id.recordPulse);
+                dateTextView = (TextView) headerView.findViewById(R.id.headerDate);
+                timeTextView = (TextView) headerView.findViewById(R.id.headerTime);
+                pressureTextView = (TextView) headerView.findViewById(R.id.headerPressure);
+                pulseTextView = (TextView) headerView.findViewById(R.id.headerPulse);
             }
         }
 
