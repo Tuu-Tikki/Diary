@@ -23,6 +23,7 @@
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="16dp"
         android:paddingTop="?attr/actionBarSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,98 +34,79 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/systolicPressure"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="16dp"
-                android:gravity="center_vertical"
-                android:text="@string/new_systolic_pressure"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@+id/addSystolicPressure"
-                app:layout_constraintEnd_toEndOf="@+id/diastolicPressure"
-                app:layout_constraintStart_toStartOf="@+id/diastolicPressure"
-                app:layout_constraintTop_toBottomOf="@+id/date"
-                app:layout_constraintVertical_bias="1.0" />
-
-            <EditText
-                android:id="@+id/addSystolicPressure"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/systolicPressure_text_input_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:gravity="center_vertical"
-                android:hint="@string/standart_systolic_pressure"
-                android:inputType="number"
-                android:maxLength="3"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/systolicPressure"
-                app:layout_constraintTop_toBottomOf="@+id/time" />
-
-            <TextView
-                android:id="@+id/diastolicPressure"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
-                android:gravity="center_vertical"
-                android:text="@string/new_diastolic_pressure"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@+id/addDiastolicPressure"
-                app:layout_constraintEnd_toStartOf="@+id/addDiastolicPressure"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/systolicPressure"
-                app:layout_constraintVertical_bias="0.96" />
-
-            <EditText
-                android:id="@+id/addDiastolicPressure"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
-                android:gravity="bottom|center_vertical"
-                android:hint="@string/standart_diastolic_pressure"
-                android:inputType="number"
-                android:maxLength="3"
-                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/diastolicPressure"
-                app:layout_constraintTop_toBottomOf="@+id/addSystolicPressure" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/date">
 
-            <TextView
-                android:id="@+id/pulse"
+                <EditText
+                    android:id="@+id/addSystolicPressure"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:hint="@string/hint_systolic_pressure"
+                    android:inputType="number"
+                    android:maxLength="3"
+                    android:textSize="18sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/diastolicPressure_text_input_layout"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
-                android:gravity="center_vertical"
-                android:text="@string/new_pulse"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@+id/addPulse"
-                app:layout_constraintEnd_toEndOf="@+id/diastolicPressure"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toTopOf="@+id/pulse_text_input_layout"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/diastolicPressure"
-                app:layout_constraintVertical_bias="0.96" />
+                app:layout_constraintTop_toBottomOf="@+id/systolicPressure_text_input_layout">
 
-            <EditText
-                android:id="@+id/addPulse"
+                <EditText
+                    android:id="@+id/addDiastolicPressure"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom|center_vertical"
+                    android:hint="@string/hint_diastolic_pressure"
+                    android:inputType="number"
+                    android:maxLength="3"
+                    android:textSize="18sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/pulse_text_input_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
-                android:hint="@string/standart_pulse"
-                android:inputType="number"
-                android:maxLength="3"
-                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/diastolicPressure"
-                app:layout_constraintTop_toBottomOf="@+id/addDiastolicPressure" />
+                app:layout_constraintStart_toStartOf="@+id/diastolicPressure_text_input_layout"
+                app:layout_constraintTop_toBottomOf="@+id/diastolicPressure_text_input_layout">
+
+                <EditText
+                    android:id="@+id/addPulse"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_pulse"
+                    android:inputType="number"
+                    android:maxLength="3"
+                    android:textSize="18sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/saveButton"
@@ -140,8 +122,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pulse"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toBottomOf="@+id/pulse_text_input_layout" />
 
             <EditText
                 android:id="@+id/time"
@@ -162,14 +143,16 @@
                 android:id="@+id/date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
                 android:clickable="true"
                 android:focusable="false"
                 android:hint="@string/date_format"
                 android:inputType="date"
                 app:layout_constraintBottom_toBottomOf="@+id/time"
-                app:layout_constraintEnd_toEndOf="@+id/systolicPressure"
-                app:layout_constraintStart_toStartOf="@+id/systolicPressure"
+                app:layout_constraintEnd_toStartOf="@+id/time"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,9 +4,10 @@
     <string name="new_systolic_pressure">Systolic blood pressure:</string>
     <string name="new_diastolic_pressure">Diastolic blood pressure:</string>
     <string name="save_button">Save</string>
-    <string name="standart_systolic_pressure">120</string>
-    <string name="standart_diastolic_pressure">80</string>
-    <string name="standart_pulse">60-100</string>
+    <string name="hint_systolic_pressure">Systolic pressure (max 300)</string>
+    <string name="hint_diastolic_pressure">Diastolic pressure (max 300)</string>
+    <string name="hint_pulse">Heart rate (max 300)</string>
+    <string name="error_pulse">Enter the heart rate!</string>
     <string name="time_format">HH:MM</string>
     <string name="date_format">DD.MM.YYYY</string>
     <string name="new_pulse">Pulse:</string>

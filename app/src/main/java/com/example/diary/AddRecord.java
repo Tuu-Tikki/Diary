@@ -9,12 +9,15 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.NumberPicker;
 import android.widget.TimePicker;
+
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -97,6 +100,27 @@ public class AddRecord extends AppCompatActivity {
         final BloodPressureData record = new BloodPressureData();
         final EditText pulse = findViewById(R.id.addPulse);
 
+        //validate fields addPulse/addSystolicPressure/addDiastolicPressure with TextWatcher class
+        pulse.addTextChangedListener(new CheckMax());
+        systolicPressure.addTextChangedListener(new CheckMax());
+        diastolicPressure.addTextChangedListener(new CheckMax());
+
+        //validate data after enter with setError
+        final TextInputLayout errorPulse = (TextInputLayout) findViewById(R.id.pulse_text_input_layout);
+        errorPulse.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    if (pulse.getText().toString().equals("") || Integer.parseInt(pulse.getText().toString())==0) {
+                        errorPulse.setError(getString(R.string.error_pulse));
+                        errorPulse.setErrorEnabled(true);
+                    } else {
+                        errorPulse.setErrorEnabled(false);
+                    }
+                }
+            }
+        });
+
         //save new record in db
         final Button button = findViewById(R.id.saveButton);
         button.setOnClickListener(new View.OnClickListener() {
@@ -117,5 +141,23 @@ public class AddRecord extends AppCompatActivity {
                 navigateUpTo(new Intent(AddRecord.this, MainActivity.class));
             }
         });
+    }
+
+    //implement CheckMax for checking if the max amount was exceeded
+    class CheckMax implements TextWatcher {
+        public void afterTextChanged(Editable s) {
+            try {
+                if(Integer.parseInt(s.toString()) > 300)
+                    s.replace(0, s.length(), "300");
+            }
+            catch(NumberFormatException nfe){}
+        }
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            // Not used, details on text just before it changed
+            // used to track in detail changes made to text, e.g. implement an undo
+        }
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            // Not used, details on text at the point change made
+        }
     }
 }

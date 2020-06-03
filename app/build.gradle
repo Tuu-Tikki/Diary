@@ -45,4 +45,7 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$room_version"
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
+
+    //for using com.google.android.material.textfield.TextInputLayout
+    implementation 'com.google.android.material:material:1.0.0-beta01'
 }
