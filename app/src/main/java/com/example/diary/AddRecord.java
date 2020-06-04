@@ -6,6 +6,7 @@ import androidx.room.Room;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,7 +16,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -97,15 +100,15 @@ public class AddRecord extends AppCompatActivity {
         //variables for saving new record
         final EditText systolicPressure = findViewById(R.id.addSystolicPressure);
         final EditText diastolicPressure = findViewById(R.id.addDiastolicPressure);
-        final BloodPressureData record = new BloodPressureData();
         final EditText pulse = findViewById(R.id.addPulse);
+        final BloodPressureData record = new BloodPressureData();
 
-        //validate fields addPulse/addSystolicPressure/addDiastolicPressure with TextWatcher class
+        //check fields addPulse/addSystolicPressure/addDiastolicPressure with TextWatcher class
         pulse.addTextChangedListener(new CheckMax());
         systolicPressure.addTextChangedListener(new CheckMax());
         diastolicPressure.addTextChangedListener(new CheckMax());
 
-        //validate data after enter with setError
+        //make error message after data entering with setError
         final TextInputLayout errorPulse = (TextInputLayout) findViewById(R.id.pulse_text_input_layout);
         errorPulse.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -121,24 +124,64 @@ public class AddRecord extends AppCompatActivity {
             }
         });
 
-        //save new record in db
+        final TextInputLayout errorSysPressure = (TextInputLayout) findViewById(R.id.systolicPressure_text_input_layout);
+        errorSysPressure.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    if (systolicPressure.getText().toString().equals("")
+                            || Integer.parseInt(systolicPressure.getText().toString())==0) {
+                        errorSysPressure.setError(getString(R.string.error_systolic_pressure));
+                        errorSysPressure.setErrorEnabled(true);
+                    } else {
+                        errorSysPressure.setErrorEnabled(false);
+                    }
+                }
+            }
+        });
+
+        final TextInputLayout errorDiasPressure = (TextInputLayout) findViewById((R.id.diastolicPressure_text_input_layout));
+        errorDiasPressure.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    if (diastolicPressure.getText().toString().equals("")
+                            || Integer.parseInt(diastolicPressure.getText().toString())==0) {
+                        errorDiasPressure.setError(getString(R.string.error_diastolic_pressure));
+                        errorDiasPressure.setErrorEnabled(true);
+                    }   else {
+                        errorDiasPressure.setErrorEnabled(false);
+                    }
+                }
+            }
+        });
+
+        //save new record in db with previously check if the fields are filled correctly
         final Button button = findViewById(R.id.saveButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                record.systolicPressure = Integer.parseInt(systolicPressure.getText().toString());
-                record.diastolicPressure = Integer.parseInt(diastolicPressure.getText().toString());
-                record.dateOfRecord = date.getText().toString();
-                record.timeOfRecord = time.getText().toString();
-                record.pulse = Integer.parseInt(pulse.getText().toString());
-                AsyncTask.execute(new Runnable() {
+                if (checkRecord(systolicPressure, diastolicPressure, pulse)) {
+                    record.systolicPressure = Integer.parseInt(systolicPressure.getText().toString());
+                    record.diastolicPressure = Integer.parseInt(diastolicPressure.getText().toString());
+                    record.dateOfRecord = date.getText().toString();
+                    record.timeOfRecord = time.getText().toString();
+                    record.pulse = Integer.parseInt(pulse.getText().toString());
+                    AsyncTask.execute(new Runnable() {
                     @Override
                     public void run() {
                         db.bloodPressureDataDao().insert(record);
                     }
-                });
-                //return to MainActivity
-                navigateUpTo(new Intent(AddRecord.this, MainActivity.class));
+                    });
+                    //return to MainActivity
+                    navigateUpTo(new Intent(AddRecord.this, MainActivity.class));
+                } else {
+                    Context context = getApplicationContext();
+                    CharSequence message = "Error! All fields should be filled!";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(context, message, duration);
+                    toast.show();
+                }
             }
         });
     }
@@ -159,5 +202,17 @@ public class AddRecord extends AppCompatActivity {
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             // Not used, details on text at the point change made
         }
+    }
+
+    public boolean checkRecord(EditText sPressure, EditText dPressure, EditText pulse) {
+        boolean notEmpty;
+        if ((sPressure.getText().toString().equals("") || Integer.parseInt(sPressure.getText().toString())==0)
+            || (dPressure.getText().toString().equals("") || Integer.parseInt(dPressure.getText().toString())==0)
+            || (pulse.getText().toString().equals("") || Integer.parseInt(pulse.getText().toString())==0)) {
+            notEmpty = false;
+        } else {
+            notEmpty = true;
+        }
+        return notEmpty;
     }
 }
