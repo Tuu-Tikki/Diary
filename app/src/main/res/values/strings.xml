@@ -4,6 +4,8 @@
     <string name="new_systolic_pressure">Systolic blood pressure:</string>
     <string name="new_diastolic_pressure">Diastolic blood pressure:</string>
     <string name="save_button">Save</string>
+    <string name="create_alarm_button">Alarm and Notification</string>
+    <string name="error_message">Error! All fields should be filled!</string>
     <string name="hint_systolic_pressure">Systolic pressure (max 300)</string>
     <string name="error_systolic_pressure">Enter the systolic pressure!</string>
     <string name="hint_diastolic_pressure">Diastolic pressure (max 300)</string>

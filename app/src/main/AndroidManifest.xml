@@ -9,7 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".AddRecord"
+        <activity
+            android:name=".AlarmAndNotification"
+            android:label="Alarm and Notification"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".AddRecord"
             android:label="Add record"
             android:parentActivityName=".MainActivity">
             <meta-data

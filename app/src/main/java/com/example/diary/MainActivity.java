@@ -10,6 +10,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+
 import androidx.appcompat.widget.Toolbar;
 
 import java.util.List;
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
                 .addMigrations(MIGRATION_3_4)
                 .build();
 
+        //use RecyclerView for display the table with records from the database
         final RecyclerView rvRecords = (RecyclerView) findViewById(R.id.recordsDisplay);
 
         AsyncTask.execute(new Runnable() {
@@ -50,11 +53,21 @@ public class MainActivity extends AppCompatActivity {
                 rvRecords.setLayoutManager(new LinearLayoutManager(MainActivity.this));}
         });
 
+        //the button for adding a new record in the database
         final Button button = findViewById(R.id.addButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, AddRecord.class));
+            }
+        });
+
+        //the button to go to alarm and notification activity
+        final ImageButton imageButton = findViewById(R.id.createAlarm);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, AlarmAndNotification.class));
             }
         });
     }

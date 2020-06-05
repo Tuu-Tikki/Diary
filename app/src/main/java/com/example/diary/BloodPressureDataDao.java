@@ -10,6 +10,7 @@ import java.util.List;
 //Data Access Objects (Dao): Contains the methods used for accessing the database.
 @Dao
 public interface BloodPressureDataDao {
+    //get all records from the database starting from the latest one
     @Query("SELECT * FROM BloodPressureData ORDER BY bloodPressureDataId DESC")
     List<BloodPressureData> getAll();
 

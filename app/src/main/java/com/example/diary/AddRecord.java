@@ -16,7 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ImageButton;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -39,17 +39,17 @@ public class AddRecord extends AppCompatActivity {
         Toolbar addToolbar = (Toolbar) findViewById(R.id.add_record_toolbar);
         setSupportActionBar(addToolbar);
 
-        //return arrow on the toolbar
+        //the return arrow on the toolbar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //create or open database
+        //create or open a database
         final AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "BloodPressureRecords")
                 .addMigrations(MIGRATION_2_3)
                 .addMigrations(MIGRATION_3_4)
                 .build();
 
-        //prefill date and time fields
+        //prefill the date and the time fields
         final EditText date = findViewById(R.id.date);
         final EditText time = findViewById(R.id.time);
         final Calendar calendar = Calendar.getInstance();
@@ -60,7 +60,7 @@ public class AddRecord extends AppCompatActivity {
         final SimpleDateFormat timeFormat = new SimpleDateFormat(timeFormatString);
         time.setText(timeFormat.format(calendar.getTime()));
 
-        //date is filled with calendar by user
+        //the date field is filled with a calendar by user
         final DatePickerDialog.OnDateSetListener dateFromPicker = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -79,7 +79,7 @@ public class AddRecord extends AppCompatActivity {
             }
         });
 
-        //time is filled by user with TimePickerDialog
+        //the time field is filled by user with TimePickerDialog
         final TimePickerDialog.OnTimeSetListener timeFromPicker = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -97,7 +97,7 @@ public class AddRecord extends AppCompatActivity {
         });
 
 
-        //variables for saving new record
+        //declaring variables for saving a new record
         final EditText systolicPressure = findViewById(R.id.addSystolicPressure);
         final EditText diastolicPressure = findViewById(R.id.addDiastolicPressure);
         final EditText pulse = findViewById(R.id.addPulse);
@@ -108,7 +108,8 @@ public class AddRecord extends AppCompatActivity {
         systolicPressure.addTextChangedListener(new CheckMax());
         diastolicPressure.addTextChangedListener(new CheckMax());
 
-        //make error message after data entering with setError
+        //make error message with setError after the data entering
+        //for the pulse (heart rate) field
         final TextInputLayout errorPulse = (TextInputLayout) findViewById(R.id.pulse_text_input_layout);
         errorPulse.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -123,7 +124,7 @@ public class AddRecord extends AppCompatActivity {
                 }
             }
         });
-
+        //for the systolic pressure field
         final TextInputLayout errorSysPressure = (TextInputLayout) findViewById(R.id.systolicPressure_text_input_layout);
         errorSysPressure.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -139,7 +140,7 @@ public class AddRecord extends AppCompatActivity {
                 }
             }
         });
-
+        //for the diastolic pressure field
         final TextInputLayout errorDiasPressure = (TextInputLayout) findViewById((R.id.diastolicPressure_text_input_layout));
         errorDiasPressure.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -157,6 +158,7 @@ public class AddRecord extends AppCompatActivity {
         });
 
         //save new record in db with previously check if the fields are filled correctly
+        //the save button below
         final Button button = findViewById(R.id.saveButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,6 +174,35 @@ public class AddRecord extends AppCompatActivity {
                     public void run() {
                         db.bloodPressureDataDao().insert(record);
                     }
+                    });
+                    //return to MainActivity
+                    navigateUpTo(new Intent(AddRecord.this, MainActivity.class));
+                } else {
+                    //floating message about the error without writing the new record in the database
+                    Context context = getApplicationContext();
+                    CharSequence message = getString(R.string.error_message);
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(context, message, duration);
+                    toast.show();
+                }
+            }
+        });
+        //the save button on the toolbar
+        final ImageButton toolbarButton = findViewById(R.id.save_button_toolbar);
+        toolbarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkRecord(systolicPressure, diastolicPressure, pulse)) {
+                    record.systolicPressure = Integer.parseInt(systolicPressure.getText().toString());
+                    record.diastolicPressure = Integer.parseInt(diastolicPressure.getText().toString());
+                    record.dateOfRecord = date.getText().toString();
+                    record.timeOfRecord = time.getText().toString();
+                    record.pulse = Integer.parseInt(pulse.getText().toString());
+                    AsyncTask.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            db.bloodPressureDataDao().insert(record);
+                        }
                     });
                     //return to MainActivity
                     navigateUpTo(new Intent(AddRecord.this, MainActivity.class));
@@ -204,6 +235,7 @@ public class AddRecord extends AppCompatActivity {
         }
     }
 
+    //check if the pressure and pulse fields are empty or filled with 0
     public boolean checkRecord(EditText sPressure, EditText dPressure, EditText pulse) {
         boolean notEmpty;
         if ((sPressure.getText().toString().equals("") || Integer.parseInt(sPressure.getText().toString())==0)

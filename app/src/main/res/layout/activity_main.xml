@@ -16,7 +16,21 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/createAlarm"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="right"
+            android:background="@color/colorPrimary"
+            android:padding="@dimen/table_padding_double"
+            android:scaleType="centerCrop"
+            android:src="@android:drawable/ic_lock_idle_alarm"
+            android:text="@string/create_alarm_button"
+            tools:layout_editor_absoluteX="355dp" />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header"

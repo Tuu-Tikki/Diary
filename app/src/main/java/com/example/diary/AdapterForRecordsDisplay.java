@@ -15,10 +15,12 @@ public class AdapterForRecordsDisplay extends
 
     private List<BloodPressureData> memberRecords;
 
+    //the constructor
     public AdapterForRecordsDisplay(List<BloodPressureData> records) {
         memberRecords = records;
     }
 
+    //View holder is in charge of displaying a single item with a view
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView dateTextView;
         public TextView timeTextView;
@@ -35,6 +37,7 @@ public class AdapterForRecordsDisplay extends
         }
     }
 
+    //onCreateViewHolder needs to construct a RecyclerView.ViewHolder and set the view it uses to display its contents.
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
@@ -45,6 +48,7 @@ public class AdapterForRecordsDisplay extends
         return viewHolder;
     }
 
+    //onBindViewHolder needs to fetch the appropriate data, and use it to fill in the view holder's layout
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, int position) {
         BloodPressureData record = memberRecords.get(position);
@@ -62,6 +66,7 @@ public class AdapterForRecordsDisplay extends
         textViewPulse.setText(stringPulse);
     }
 
+    //return the size of the dataset
     @Override
     public int getItemCount() {
         return memberRecords.size();
