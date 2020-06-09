@@ -30,10 +30,10 @@ public class AdapterForRecordsDisplay extends
         public ViewHolder(View view) {
             super(view);
 
-            dateTextView = (TextView) view.findViewById(R.id.recordDate);
-            timeTextView = (TextView) view.findViewById(R.id.recordTime);
-            pressureTextView = (TextView) view.findViewById(R.id.recordPressure);
-            pulseTextView = (TextView) view.findViewById(R.id.recordPulse);
+            dateTextView = (TextView) view.findViewById(R.id.record_date);
+            timeTextView = (TextView) view.findViewById(R.id.record_time);
+            pressureTextView = (TextView) view.findViewById(R.id.record_pressure);
+            pulseTextView = (TextView) view.findViewById(R.id.record_pulse);
         }
     }
 

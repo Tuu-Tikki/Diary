@@ -16,19 +16,21 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:targetApi="lollipop">
 
         <ImageButton
-            android:id="@+id/createAlarm"
+            android:id="@+id/create_alarm"
             android:layout_width="?attr/actionBarSize"
             android:layout_height="?attr/actionBarSize"
-            android:layout_gravity="right"
+            android:layout_gravity="end"
             android:background="@color/colorPrimary"
             android:padding="@dimen/table_padding_double"
             android:scaleType="centerCrop"
             android:src="@android:drawable/ic_lock_idle_alarm"
             android:text="@string/create_alarm_button"
-            tools:layout_editor_absoluteX="355dp" />
+            tools:layout_editor_absoluteX="355dp"
+            android:contentDescription="@string/create_alarm" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -42,13 +44,13 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:background="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toTopOf="@+id/recordsDisplay"
+        app:layout_constraintBottom_toTopOf="@+id/records_display"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_activity_toolbar">
 
         <TextView
-            android:id="@+id/headerDate"
+            android:id="@+id/header_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/table_border"
@@ -61,12 +63,14 @@
             android:text="@string/column_date"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/headerTime"
+            app:layout_constraintEnd_toStartOf="@+id/header_time"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="@dimen/table_border"
+            android:layout_marginEnd="@dimen/table_border_half" />
 
         <TextView
-            android:id="@+id/headerTime"
+            android:id="@+id/header_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/table_border_half"
@@ -79,12 +83,12 @@
             android:text="@string/column_time"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/headerPressure"
-            app:layout_constraintStart_toEndOf="@+id/headerDate"
+            app:layout_constraintEnd_toStartOf="@+id/header_pressure"
+            app:layout_constraintStart_toEndOf="@+id/header_date"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/headerPressure"
+            android:id="@+id/header_pressure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/table_border_half"
@@ -98,12 +102,12 @@
             android:text="@string/column_pressure"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/headerPulse"
-            app:layout_constraintStart_toEndOf="@+id/headerTime"
+            app:layout_constraintEnd_toStartOf="@+id/header_pulse"
+            app:layout_constraintStart_toEndOf="@+id/header_time"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/headerPulse"
+            android:id="@+id/header_pulse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/table_border_half"
@@ -117,12 +121,14 @@
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/headerPressure"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/header_pressure"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="@dimen/table_border_half"
+            android:layout_marginEnd="@dimen/table_border" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
-        android:id="@+id/addButton"
+        android:id="@+id/add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -135,15 +141,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recordsDisplay" />
+        app:layout_constraintTop_toBottomOf="@+id/records_display" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recordsDisplay"
+        android:id="@+id/records_display"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="16dp"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/addButton"
+        app:layout_constraintBottom_toTopOf="@+id/add_button"
         app:layout_constraintEnd_toEndOf="@+id/header"
         app:layout_constraintStart_toStartOf="@+id/header"
         app:layout_constraintTop_toBottomOf="@+id/header" />

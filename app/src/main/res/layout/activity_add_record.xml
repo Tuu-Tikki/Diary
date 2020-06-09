@@ -17,16 +17,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        tools:targetApi="lollipop">
 
         <ImageButton
             android:id="@+id/save_button_toolbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_gravity="end"
             android:background="@android:drawable/ic_menu_save"
             android:text="@string/save_button"
-            android:layout_marginRight="16dp" />
+            android:layout_marginRight="16dp"
+            android:contentDescription="@string/save_button_on_toolbar"
+            android:layout_marginEnd="16dp" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -43,10 +46,10 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/systolicPressure_text_input_layout"
+                android:id="@+id/systolic_pressure_text_input_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -59,11 +62,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/date">
 
                 <EditText
-                    android:id="@+id/addSystolicPressure"
+                    android:id="@+id/add_systolic_pressure"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:hint="@string/hint_systolic_pressure"
+                    android:importantForAutofill="no"
                     android:inputType="number"
                     android:maxLength="3"
                     android:textSize="18sp" />
@@ -71,7 +75,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/diastolicPressure_text_input_layout"
+                android:id="@+id/diastolic_pressure_text_input_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -83,14 +87,15 @@
                 app:layout_constraintBottom_toTopOf="@+id/pulse_text_input_layout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/systolicPressure_text_input_layout">
+                app:layout_constraintTop_toBottomOf="@+id/systolic_pressure_text_input_layout">
 
                 <EditText
-                    android:id="@+id/addDiastolicPressure"
+                    android:id="@+id/add_diastolic_pressure"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="bottom|center_vertical"
                     android:hint="@string/hint_diastolic_pressure"
+                    android:importantForAutofill="no"
                     android:inputType="number"
                     android:maxLength="3"
                     android:textSize="18sp" />
@@ -105,14 +110,15 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="@dimen/table_padding_double"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/diastolicPressure_text_input_layout"
-                app:layout_constraintTop_toBottomOf="@+id/diastolicPressure_text_input_layout">
+                app:layout_constraintStart_toStartOf="@+id/diastolic_pressure_text_input_layout"
+                app:layout_constraintTop_toBottomOf="@+id/diastolic_pressure_text_input_layout">
 
                 <EditText
-                    android:id="@+id/addPulse"
+                    android:id="@+id/add_pulse"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_pulse"
+                    android:importantForAutofill="no"
                     android:inputType="number"
                     android:maxLength="3"
                     android:textSize="18sp" />
@@ -120,7 +126,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/saveButton"
+                android:id="@+id/save_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -142,9 +148,10 @@
                 android:layout_marginTop="@dimen/table_padding_double"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="@dimen/table_padding_double"
-                android:clickable="true"
+                android:clickable="false"
                 android:focusable="false"
                 android:hint="@string/time_format"
+                android:importantForAutofill="no"
                 android:inputType="time"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/date"
@@ -157,9 +164,10 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="@dimen/table_padding_double"
                 android:layout_marginTop="@dimen/table_padding_double"
-                android:clickable="true"
+                android:clickable="false"
                 android:focusable="false"
                 android:hint="@string/date_format"
+                android:importantForAutofill="no"
                 android:inputType="date"
                 app:layout_constraintBottom_toBottomOf="@+id/time"
                 app:layout_constraintEnd_toStartOf="@+id/time"

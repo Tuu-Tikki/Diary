@@ -15,4 +15,8 @@
     <string name="time_format">HH:MM</string>
     <string name="date_format">DD.MM.YYYY</string>
     <string name="new_pulse">Pulse:</string>
+    <string name="create_alarm">Create Alarm</string>
+    <string name="save_button_on_toolbar">Save new record</string>
+    <string name="date_format_string">dd.MM.yyyy</string>
+    <string name="time_format_string">HH:mm</string>
 </resources>

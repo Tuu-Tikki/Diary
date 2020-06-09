@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         //use RecyclerView for display the table with records from the database
-        final RecyclerView rvRecords = (RecyclerView) findViewById(R.id.recordsDisplay);
+        final RecyclerView rvRecords = (RecyclerView) findViewById(R.id.records_display);
 
         AsyncTask.execute(new Runnable() {
             @Override
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //the button for adding a new record in the database
-        final Button button = findViewById(R.id.addButton);
+        final Button button = findViewById(R.id.add_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //the button to go to alarm and notification activity
-        final ImageButton imageButton = findViewById(R.id.createAlarm);
+        final ImageButton imageButton = findViewById(R.id.create_alarm);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

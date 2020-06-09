@@ -6,7 +6,7 @@
     android:background="@color/colorPrimaryDark">
 
     <TextView
-        android:id="@+id/recordDate"
+        android:id="@+id/record_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/table_border"
@@ -17,12 +17,14 @@
         android:paddingRight="@dimen/table_padding"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/recordTime"
+        app:layout_constraintEnd_toStartOf="@+id/record_time"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="@dimen/table_border"
+        android:layout_marginEnd="@dimen/table_border_half" />
 
     <TextView
-        android:id="@+id/recordTime"
+        android:id="@+id/record_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/table_border_half"
@@ -33,12 +35,12 @@
         android:paddingRight="@dimen/table_padding"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/recordPressure"
-        app:layout_constraintStart_toEndOf="@+id/recordDate"
+        app:layout_constraintEnd_toStartOf="@+id/record_pressure"
+        app:layout_constraintStart_toEndOf="@+id/record_date"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/recordPressure"
+        android:id="@+id/record_pressure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/table_border_half"
@@ -50,12 +52,12 @@
         android:paddingRight="@dimen/table_padding"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/recordPulse"
-        app:layout_constraintStart_toEndOf="@+id/recordTime"
+        app:layout_constraintEnd_toStartOf="@+id/record_pulse"
+        app:layout_constraintStart_toEndOf="@+id/record_time"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/recordPulse"
+        android:id="@+id/record_pulse"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/table_border_half"
@@ -67,6 +69,8 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/recordPressure"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/record_pressure"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="@dimen/table_border_half"
+        android:layout_marginEnd="@dimen/table_border" />
 </androidx.constraintlayout.widget.ConstraintLayout>

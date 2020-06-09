@@ -17,8 +17,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        >
+        tools:targetApi="lollipop">
 
     </androidx.appcompat.widget.Toolbar>
+
+    <EditText
+        android:id="@+id/choose_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="@dimen/table_padding_double"
+        android:clickable="false"
+        android:focusable="false"
+        android:hint="@string/time_format"
+        android:inputType="time"
+        app:layout_constraintEnd_toStartOf="@+id/alarm_on_off"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alarm_toolbar"
+        android:importantForAutofill="no" />
+
+    <Switch
+        android:id="@+id/alarm_on_off"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="@+id/choose_time"
+        app:layout_constraintStart_toEndOf="@+id/choose_time"
+        app:layout_constraintTop_toBottomOf="@+id/alarm_toolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
