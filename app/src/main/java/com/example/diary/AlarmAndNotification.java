@@ -34,8 +34,7 @@ public class AlarmAndNotification extends AppCompatActivity {
 
         //prefill the time EditText
         final Calendar calendar = Calendar.getInstance();
-        String timeFormatString = "HH:mm";
-        final SimpleDateFormat timeFormat = new SimpleDateFormat(timeFormatString);
+        final SimpleDateFormat timeFormat = new SimpleDateFormat(getString(R.string.time_format_string));
         final EditText chosenTime = findViewById(R.id.choose_time);
         chosenTime.setText(timeFormat.format(calendar.getTime()));
 
@@ -60,8 +59,7 @@ public class AlarmAndNotification extends AppCompatActivity {
         final AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Context context = getApplicationContext();
         final Intent intentForAlarmReceiver = new Intent(context, AlarmReceiver.class);
-        final PendingIntent pendingIntent = PendingIntent.getBroadcast(AlarmAndNotification.this, 0,
-                intentForAlarmReceiver, 0);
+        final PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intentForAlarmReceiver, 0);
 
         //watch the state of Switch button
         Switch alarmSwitch = findViewById(R.id.alarm_on_off);
@@ -69,11 +67,11 @@ public class AlarmAndNotification extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                    alarmManager.set(AlarmManager.RTC_WAKEUP, /*calendar.getTimeInMillis()*/ 5000, pendingIntent);
                 } else {
                     alarmManager.cancel(pendingIntent);
                 }
             }
         });
-    }
+     }
 }

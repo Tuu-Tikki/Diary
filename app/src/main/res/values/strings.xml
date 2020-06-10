@@ -19,4 +19,6 @@
     <string name="save_button_on_toolbar">Save new record</string>
     <string name="date_format_string">dd.MM.yyyy</string>
     <string name="time_format_string">HH:mm</string>
+    <string name="channel_name">Notification for meds</string>
+    <string name="channel_description">It is used for notifications about taking meds</string>
 </resources>

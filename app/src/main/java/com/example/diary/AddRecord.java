@@ -139,6 +139,7 @@ public class AddRecord extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveRecord(systolicPressure, diastolicPressure, pulse, date, time, record, db);
+                db.close();
             }
         });
         //the save button on the toolbar
@@ -147,6 +148,7 @@ public class AddRecord extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveRecord(systolicPressure, diastolicPressure, pulse, date, time, record, db);
+                db.close();
             }
         });
     }
@@ -169,6 +171,7 @@ public class AddRecord extends AppCompatActivity {
         }
     }
 
+    //check the EditText field after losing Focus and show an error message if necessary
     public void setErrorMessage(EditText mEditText, TextInputLayout mTextInputLayout, boolean hasFocus, String message) {
         if (!hasFocus) {
             if (mEditText.getText().toString().equals("") || Integer.parseInt(mEditText.getText().toString()) == 0) {
@@ -212,9 +215,8 @@ public class AddRecord extends AppCompatActivity {
             navigateUpTo(new Intent(AddRecord.this, MainActivity.class));
         } else {
             Context context = getApplicationContext();
-            CharSequence message = "Error! All fields should be filled!";
             int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(context, message, duration);
+            Toast toast = Toast.makeText(context, getString(R.string.error_message), duration);
             toast.show();
         }
     }
