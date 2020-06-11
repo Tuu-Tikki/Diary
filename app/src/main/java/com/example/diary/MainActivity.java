@@ -46,14 +46,15 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 records = db.bloodPressureDataDao().getAll();
 
-                //close database
-                db.close();
-
                 AdapterForRecordsDisplay adapter = new AdapterForRecordsDisplay(records);
 
                 rvRecords.setAdapter(adapter);
 
-                rvRecords.setLayoutManager(new LinearLayoutManager(MainActivity.this));}
+                rvRecords.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+
+                //close database
+                db.close();
+            }
         });
 
         //the button for adding a new record in the database
