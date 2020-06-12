@@ -14,6 +14,7 @@
         android:background="@color/colorPrimary"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -27,7 +28,7 @@
             android:background="@android:color/transparent"
             android:contentDescription="@string/create_alarm"
             android:padding="@dimen/table_padding_double"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             android:src="@android:drawable/ic_lock_idle_alarm"
             android:text="@string/create_alarm_button"
             tools:layout_editor_absoluteX="355dp" />
