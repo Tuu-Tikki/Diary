@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -23,15 +22,15 @@
 
         <ImageButton
             android:id="@+id/save_button_toolbar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/button_size"
+            android:layout_height="@dimen/button_size"
             android:layout_gravity="end"
             android:background="@android:color/transparent"
             android:contentDescription="@string/save_button_on_toolbar"
-            android:src="@android:drawable/ic_menu_save"
-            android:text="@string/save_button"
+            android:scaleType="centerCrop"
             android:layout_marginRight="@dimen/table_padding_double"
-            android:layout_marginEnd="@dimen/table_padding_double" />
+            android:src="@android:drawable/ic_menu_save"
+            android:text="@string/save_button" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -39,8 +38,8 @@
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
         android:layout_marginBottom="@dimen/table_padding_double"
-        android:paddingTop="?attr/actionBarSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -22,16 +22,15 @@
 
         <ImageButton
             android:id="@+id/create_alarm"
-            android:layout_width="?attr/actionBarSize"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_width="@dimen/button_size"
+            android:layout_height="@dimen/button_size"
             android:layout_gravity="end"
             android:background="@android:color/transparent"
             android:contentDescription="@string/create_alarm"
-            android:padding="@dimen/table_padding_double"
-            android:scaleType="fitCenter"
+            android:scaleType="centerCrop"
+            android:layout_marginRight="@dimen/table_padding_double"
             android:src="@android:drawable/ic_lock_idle_alarm"
-            android:text="@string/create_alarm_button"
-            tools:layout_editor_absoluteX="355dp" />
+            android:text="@string/create_alarm_button" />
 
     </androidx.appcompat.widget.Toolbar>
 

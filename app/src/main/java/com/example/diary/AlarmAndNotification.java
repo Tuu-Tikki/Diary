@@ -26,8 +26,8 @@ public class AlarmAndNotification extends AppCompatActivity {
         setContentView(R.layout.activity_alarm_and_notification);
 
         //customized toolbar
-        Toolbar addToolbar = (Toolbar) findViewById(R.id.alarm_toolbar);
-        setSupportActionBar(addToolbar);
+        Toolbar alarmToolbar = (Toolbar) findViewById(R.id.alarm_toolbar);
+        setSupportActionBar(alarmToolbar);
 
         //the return arrow on the toolbar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
