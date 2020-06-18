@@ -46,10 +46,15 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 records = db.bloodPressureDataDao().getAll();
 
-                AdapterForRecordsDisplay adapter = new AdapterForRecordsDisplay(records);
+                final AdapterForRecordsDisplay adapter = new AdapterForRecordsDisplay(records);
 
-                rvRecords.setAdapter(adapter);
-
+                //try to fix "Only the original thread that created a view hierarchy can touch its views"
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        rvRecords.setAdapter(adapter);
+                    }
+                });
                 rvRecords.setLayoutManager(new LinearLayoutManager(MainActivity.this));
 
                 //close database

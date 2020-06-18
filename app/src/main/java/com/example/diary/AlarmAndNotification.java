@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TimePicker;
 
@@ -31,6 +32,15 @@ public class AlarmAndNotification extends AppCompatActivity {
 
         //the return arrow on the toolbar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //the button to go to add new alarm activity
+        ImageButton imageButton = findViewById(R.id.new_alarm);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AlarmAndNotification.this, AddAlarm.class));
+            }
+        });
 
         //prefill the time EditText
         final Calendar calendar = Calendar.getInstance();
@@ -62,7 +72,7 @@ public class AlarmAndNotification extends AppCompatActivity {
         final PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intentForAlarmReceiver, 0);
 
         //watch the state of Switch button
-        Switch alarmSwitch = findViewById(R.id.alarm_on_off);
+        final Switch alarmSwitch = findViewById(R.id.alarm_on_off);
         alarmSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

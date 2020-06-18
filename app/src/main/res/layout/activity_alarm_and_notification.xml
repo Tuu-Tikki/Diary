@@ -20,6 +20,18 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         tools:targetApi="lollipop">
 
+        <ImageButton
+        android:id="@+id/new_alarm"
+        android:layout_width="@dimen/button_size"
+        android:layout_height="@dimen/button_size"
+        app:srcCompat="@android:drawable/ic_menu_add"
+        android:layout_gravity="end"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/add_new_alarm"
+        android:scaleType="centerCrop"
+        android:layout_marginRight="@dimen/standard_margin"
+        android:text="@string/add_new_alarm"/>
+
     </androidx.appcompat.widget.Toolbar>
 
     <EditText
@@ -28,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="@dimen/table_padding_double"
+        android:layout_marginTop="@dimen/standard_margin"
         android:clickable="false"
         android:focusable="false"
         android:hint="@string/time_format"

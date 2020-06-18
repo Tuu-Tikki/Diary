@@ -4,7 +4,7 @@
     <string name="new_systolic_pressure">Systolic blood pressure:</string>
     <string name="new_diastolic_pressure">Diastolic blood pressure:</string>
     <string name="save_button">Save</string>
-    <string name="create_alarm_button">Alarm and Notification</string>
+    <string name="go_to_alarm_button">Alarm and Notification</string>
     <string name="error_message">Error! All fields should be filled!</string>
     <string name="hint_systolic_pressure">Systolic pressure (max 300)</string>
     <string name="error_systolic_pressure">Enter the systolic pressure!</string>
@@ -15,10 +15,14 @@
     <string name="time_format">HH:MM</string>
     <string name="date_format">DD.MM.YYYY</string>
     <string name="new_pulse">Pulse:</string>
-    <string name="create_alarm">Create Alarm</string>
+    <string name="go_to_alarm">Go to the alarm and notification page</string>
     <string name="save_button_on_toolbar">Save new record</string>
     <string name="date_format_string">dd.MM.yyyy</string>
     <string name="time_format_string">HH:mm</string>
     <string name="channel_name">Notification for meds</string>
     <string name="channel_description">It is used for notifications about taking meds</string>
+    <string name="add_new_alarm">Add new alarm</string>
+    <string name="measure_pressure">For pressure measurement</string>
+    <string name="take_pills">For taking pills</string>
+    <string name="save_new_alarm">Save new alarm</string>
 </resources>
