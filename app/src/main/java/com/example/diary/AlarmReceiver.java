@@ -1,5 +1,6 @@
 package com.example.diary;
 
+import android.app.Notification;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -24,13 +25,15 @@ public class AlarmReceiver extends BroadcastReceiver {
         //making notification with certain parameters. PRIORITY_HIGH is for show the notification over the working app
         //and VISIBILITY_PUBLIC show full notification on lock-screen
         //setAutoCancel(true) automatically delete a notification after an user taps it
+        //setDefaults(int defaults) set the sound for notification (API 11-26)
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_background)
                 .setContentTitle("Title")
                 .setContentText("Alarm!!!")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                .setAutoCancel(true);
+                .setAutoCancel(true)
+                .setDefaults(Notification.DEFAULT_SOUND);
 
         //HIGH_PRIORITY needs vibrate permission. Here this feature is disabled.
         if (Build.VERSION.SDK_INT >= 21) builder.setVibrate(new long[] {0});
