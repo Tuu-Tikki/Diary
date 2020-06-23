@@ -53,9 +53,9 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         rvRecords.setAdapter(adapter);
+                        rvRecords.setLayoutManager(new LinearLayoutManager(MainActivity.this));
                     }
                 });
-                rvRecords.setLayoutManager(new LinearLayoutManager(MainActivity.this));
 
                 //close database
                 db.close();

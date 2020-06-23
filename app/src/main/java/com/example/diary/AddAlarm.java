@@ -2,14 +2,20 @@ package com.example.diary;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.room.Room;
 
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -53,13 +59,57 @@ public class AddAlarm extends AppCompatActivity {
             }
         });
 
+        //declare variable to save new alarm event
+        final AlarmEvents event = new AlarmEvents();
+
+        //save CheckBoxes condition
+        final CheckBox measurement = findViewById(R.id.measure_pressure_alarm);
+        final CheckBox pills = findViewById(R.id.taking_pills_alarm);
+        measurement.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                event.measurement = isChecked;
+            }
+        });
+        pills.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                event.pills = isChecked;
+            }
+        });
+
+        //save the time for new alarm event
+        event.timeOfAlarm = chooseTime.getText().toString();
+
+        //create or open the database
+        final AlarmDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AlarmDatabase.class, "AlarmEvents")
+                .build();
+
         //save button on the toolbar
         final ImageButton saveAlarm = findViewById(R.id.save_alarm);
         saveAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //return to Alarm and Notification
-                navigateUpTo(new Intent(AddAlarm.this, AlarmAndNotification.class));
+                //check if an user checked one of CheckBoxes
+                //if no - to show an error message
+                if ((!event.measurement) && (!event.pills)) {
+                    Context context = getApplicationContext();
+                    Toast toast = Toast.makeText(context, getString(R.string.error_message_for_add_alarm), Toast.LENGTH_SHORT);
+                    toast.show();
+                //if yes - to save nee event in the database
+                } else {
+                    AsyncTask.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            db.alarmDao().insert(event);
+                        }
+                    });
+                    //close the database
+                    db.close();
+                    //return to Alarm and Notification
+                    navigateUpTo(new Intent(AddAlarm.this, AlarmAndNotification.class));
+                }
             }
         });
     }

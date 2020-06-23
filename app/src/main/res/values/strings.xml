@@ -25,4 +25,5 @@
     <string name="measure_pressure">For pressure measurement</string>
     <string name="take_pills">For taking pills</string>
     <string name="save_new_alarm">Save new alarm</string>
+    <string name="error_message_for_add_alarm">Choose one or both reasons for the alarm!</string>
 </resources>

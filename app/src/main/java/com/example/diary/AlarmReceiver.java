@@ -35,12 +35,16 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_SOUND);
 
+        //try to make work "automatically delete a notification after an user taps it"
+        Notification notification = builder.build();
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+
         //HIGH_PRIORITY needs vibrate permission. Here this feature is disabled.
         if (Build.VERSION.SDK_INT >= 21) builder.setVibrate(new long[] {0});
 
         //show the notification
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-        notificationManager.notify(1,builder.build());
+        notificationManager.notify(1,notification);
     }
 }
 

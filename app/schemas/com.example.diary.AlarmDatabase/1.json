@@ -1,0 +1,52 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "62c51fca1fe5666490ea04b632dc586d",
+    "entities": [
+      {
+        "tableName": "AlarmEvents",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`alarmEventId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `timeOfAlarm` TEXT, `alarmForMeasurement` INTEGER NOT NULL, `alarmForPills` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "alarmEventId",
+            "columnName": "alarmEventId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timeOfAlarm",
+            "columnName": "timeOfAlarm",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "measurement",
+            "columnName": "alarmForMeasurement",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pills",
+            "columnName": "alarmForPills",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "alarmEventId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '62c51fca1fe5666490ea04b632dc586d')"
+    ]
+  }
+}
