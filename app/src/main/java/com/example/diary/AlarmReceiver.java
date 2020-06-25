@@ -1,10 +1,11 @@
 package com.example.diary;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
@@ -20,7 +21,17 @@ public class AlarmReceiver extends BroadcastReceiver {
         //notification - It works!
 
         // this String is necessary for the constructor NotificationCompat, so the notifications work with API 26+
-        final String CHANNEL_ID = "CHANNEL_ID";
+        final String CHANNEL_ID = "DIARY_ALARM_CHANNEL";
+        //Class to notify the user of events that happen
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        //create a notification channel for API 26+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
+                    context.getString(R.string.channel_name),
+                    NotificationManager.IMPORTANCE_HIGH);
+            channel.setDescription(context.getString(R.string.channel_description));
+            notificationManager.createNotificationChannel(channel);
+        }
 
         //making notification with certain parameters. PRIORITY_HIGH is for show the notification over the working app
         //and VISIBILITY_PUBLIC show full notification on lock-screen
@@ -28,8 +39,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         //setDefaults(int defaults) set the sound for notification (API 11-26)
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_background)
-                .setContentTitle("Title")
-                .setContentText("Alarm!!!")
+                .setContentTitle(context.getString(R.string.app_name))
+                .setContentText(context.getString(R.string.text_of_notification))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setAutoCancel(true)
@@ -40,10 +51,9 @@ public class AlarmReceiver extends BroadcastReceiver {
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
 
         //HIGH_PRIORITY needs vibrate permission. Here this feature is disabled.
-        if (Build.VERSION.SDK_INT >= 21) builder.setVibrate(new long[] {0});
+        //if (Build.VERSION.SDK_INT >= 21) builder.setVibrate(new long[] {0});
 
         //show the notification
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         notificationManager.notify(1,notification);
     }
 }

@@ -140,7 +140,6 @@ public class AddRecord extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveRecord(systolicPressure, diastolicPressure, pulse, date, time, record, db);
-                db.close();
             }
         });
         //the save button on the toolbar
@@ -149,7 +148,6 @@ public class AddRecord extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveRecord(systolicPressure, diastolicPressure, pulse, date, time, record, db);
-                db.close();
             }
         });
     }
@@ -212,6 +210,7 @@ public class AddRecord extends AppCompatActivity {
                     db.bloodPressureDataDao().insert(record);
                 }
             });
+            db.close();
             //return to MainActivity
             navigateUpTo(new Intent(AddRecord.this, MainActivity.class));
         } else {

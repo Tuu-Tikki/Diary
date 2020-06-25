@@ -97,7 +97,7 @@ public class AddAlarm extends AppCompatActivity {
                     Context context = getApplicationContext();
                     Toast toast = Toast.makeText(context, getString(R.string.error_message_for_add_alarm), Toast.LENGTH_SHORT);
                     toast.show();
-                //if yes - to save nee event in the database
+                //if yes - to save new event in the database
                 } else {
                     AsyncTask.execute(new Runnable() {
                         @Override
