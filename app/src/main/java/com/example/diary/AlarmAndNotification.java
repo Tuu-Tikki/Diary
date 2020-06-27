@@ -2,6 +2,8 @@ package com.example.diary;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -10,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -42,46 +45,21 @@ public class AlarmAndNotification extends AppCompatActivity {
             }
         });
 
-        //prefill the time EditText
-        final Calendar calendar = Calendar.getInstance();
-        final SimpleDateFormat timeFormat = new SimpleDateFormat(getString(R.string.time_format_string));
-        final EditText chosenTime = findViewById(R.id.choose_time);
-        chosenTime.setText(timeFormat.format(calendar.getTime()));
-
-        //user sets the time with TimePicker
-        final TimePickerDialog.OnTimeSetListener timeFromPicker = new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                calendar.set(Calendar.MINUTE, minute);
-                chosenTime.setText(timeFormat.format(calendar.getTime()));
-            }
-        };
-        chosenTime.setOnClickListener(new View.OnClickListener() {
+        //the button below to go to add new alarm activity
+        Button button = findViewById(R.id.new_alarm_below);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new TimePickerDialog(AlarmAndNotification.this, timeFromPicker, calendar.get(Calendar.HOUR_OF_DAY),
-                        calendar.get(Calendar.MINUTE), true).show();
+                startActivity(new Intent(AlarmAndNotification.this, AddAlarm.class));
             }
         });
 
-        //initialize AlarmManager and create Intent for AlarmReceiver.class
-        final AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        Context context = getApplicationContext();
-        final Intent intentForAlarmReceiver = new Intent(context, AlarmReceiver.class);
-        final PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intentForAlarmReceiver, 0);
+        //create or open a database
+        final AlarmDatabase db = Room.databaseBuilder(getApplicationContext(),
+            AlarmDatabase.class, "AlarmEvents")
+            .build();
 
-        //watch the state of Switch button
-        final Switch alarmSwitch = findViewById(R.id.alarm_on_off);
-        alarmSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    alarmManager.set(AlarmManager.RTC_WAKEUP, /*calendar.getTimeInMillis()*/ 5000, pendingIntent);
-                } else {
-                    alarmManager.cancel(pendingIntent);
-                }
-            }
-        });
+        //RecyclerView
+        final RecyclerView rvAlarms = (RecyclerView) findViewById(R.id.alarm_events_display);
      }
 }

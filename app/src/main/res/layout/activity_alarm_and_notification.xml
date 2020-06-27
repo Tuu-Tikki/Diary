@@ -34,32 +34,33 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <EditText
-        android:id="@+id/choose_time"
+    <Button
+        android:id="@+id/new_alarm_below"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginTop="@dimen/standard_margin"
-        android:clickable="false"
-        android:focusable="false"
-        android:hint="@string/time_format"
-        android:inputType="time"
-        app:layout_constraintEnd_toStartOf="@+id/alarm_on_off"
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:text="@string/add_new_alarm"
+        android:textSize="@dimen/button_font_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/alarm_toolbar"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/alarm_events_display"
+        tools:text="@string/add_new_alarm" />
 
-    <Switch
-        android:id="@+id/alarm_on_off"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:text=""
-        app:layout_constraintBottom_toBottomOf="@+id/choose_time"
-        app:layout_constraintStart_toEndOf="@+id/choose_time"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/alarm_events_display"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/standard_margin"
+        android:layout_marginLeft="@dimen/standard_margin"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:layout_marginEnd="@dimen/standard_margin"
+        android:layout_marginRight="@dimen/standard_margin"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/new_alarm_below"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/alarm_toolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

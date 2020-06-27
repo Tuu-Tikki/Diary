@@ -4,12 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -91,26 +94,48 @@ public class AddAlarm extends AppCompatActivity {
         saveAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //check if an user checked one of CheckBoxes
-                //if no - to show an error message
-                if ((!event.measurement) && (!event.pills)) {
-                    Context context = getApplicationContext();
-                    Toast toast = Toast.makeText(context, getString(R.string.error_message_for_add_alarm), Toast.LENGTH_SHORT);
-                    toast.show();
-                //if yes - to save new event in the database
-                } else {
-                    AsyncTask.execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            db.alarmDao().insert(event);
-                        }
-                    });
-                    //close the database
-                    db.close();
-                    //return to Alarm and Notification
-                    navigateUpTo(new Intent(AddAlarm.this, AlarmAndNotification.class));
-                }
+                saveAlarm(db, event, calendar);
             }
         });
+
+        //save button below
+        final Button saveAlarmBelow = findViewById(R.id.alarm_save_button);
+        saveAlarmBelow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveAlarm(db, event, calendar);
+            }
+        });
+    }
+
+    //check and save new alarm in the database
+    public void saveAlarm(final AlarmDatabase db, final AlarmEvents event, final Calendar calendar) {
+        //check if an user checked one of CheckBoxes
+        //if no - to show an error message
+        if ((!event.measurement) && (!event.pills)) {
+            Context context = getApplicationContext();
+            Toast toast = Toast.makeText(context, getString(R.string.error_message_for_add_alarm), Toast.LENGTH_SHORT);
+            toast.show();
+        //if yes - to save new event in the database
+        } else {
+            AsyncTask.execute(new Runnable() {
+                @Override
+                public void run() {
+                    db.alarmDao().insert(event);
+                }
+            });
+            //close the database
+            db.close();
+
+            //initialize AlarmManager and create Intent for AlarmReceiver.class
+            final AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            Context context = getApplicationContext();
+            final Intent intentForAlarmReceiver = new Intent(context, AlarmReceiver.class);
+            final PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intentForAlarmReceiver, 0);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+
+            //return to Alarm and Notification
+            navigateUpTo(new Intent(AddAlarm.this, AlarmAndNotification.class));
+        }
     }
 }

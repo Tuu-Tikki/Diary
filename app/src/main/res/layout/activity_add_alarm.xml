@@ -76,4 +76,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/measure_pressure_alarm" />
 
+    <Button
+        android:id="@+id/alarm_save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:text="@string/save_button"
+        android:textSize="@dimen/button_font_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/taking_pills_alarm"
+        tools:text="@string/save_button" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
