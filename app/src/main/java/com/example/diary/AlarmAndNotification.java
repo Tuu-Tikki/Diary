@@ -2,6 +2,7 @@ package com.example.diary;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
@@ -10,6 +11,7 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,8 +23,10 @@ import android.widget.TimePicker;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 public class AlarmAndNotification extends AppCompatActivity {
+    List<AlarmEvents> events;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,5 +65,26 @@ public class AlarmAndNotification extends AppCompatActivity {
 
         //RecyclerView
         final RecyclerView rvAlarms = (RecyclerView) findViewById(R.id.alarm_events_display);
+
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                events = db.alarmDao().getAll();
+
+                final AdapterForAlarmEvents adapter = new AdapterForAlarmEvents(events);
+
+                runOnUiThread(new Runnable() {
+                      @Override
+                      public void run() {
+                           rvAlarms.setAdapter(adapter);
+                           rvAlarms.setLayoutManager(new LinearLayoutManager(AlarmAndNotification.this));
+                      }
+                 });
+
+                adapter.notifyDataSetChanged();
+                
+                db.close();
+            }
+        });
      }
 }
