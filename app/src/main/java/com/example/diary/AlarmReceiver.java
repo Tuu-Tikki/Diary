@@ -54,7 +54,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         //if (Build.VERSION.SDK_INT >= 21) builder.setVibrate(new long[] {0});
 
         //show the notification
-        notificationManager.notify(1,notification);
+        notificationManager.notify(1, notification);
     }
 }
 

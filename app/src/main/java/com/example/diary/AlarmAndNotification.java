@@ -81,8 +81,6 @@ public class AlarmAndNotification extends AppCompatActivity {
                       }
                  });
 
-                adapter.notifyDataSetChanged();
-                
                 db.close();
             }
         });

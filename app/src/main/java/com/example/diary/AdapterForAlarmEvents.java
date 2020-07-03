@@ -55,7 +55,7 @@ public class AdapterForAlarmEvents extends
 
     //onBindViewHolder needs to fetch the appropriate data, and use it to fill in the view holder's layout
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, final int position) {
         final AlarmEvents event = displayedEvents.get(position);
         final ViewHolder holder = (ViewHolder) viewHolder;
 
@@ -65,6 +65,8 @@ public class AdapterForAlarmEvents extends
         checkBoxPills.setChecked(event.pills);
         TextView alarmTime = holder.time;
         alarmTime.setText(event.timeOfAlarm);
+
+        //delete the record from db and from the list when the button delete pressed
         final ImageButton deleteButton = holder.delete;
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +80,10 @@ public class AdapterForAlarmEvents extends
                         db.alarmDao().delete(event);
                     }
                 });
-                db.close();
+
+                displayedEvents.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, displayedEvents.size());
             }
         });
     }

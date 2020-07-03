@@ -22,8 +22,8 @@
     <string name="channel_name">DIARY_ALARM</string>
     <string name="channel_description">Notifications for a pressure measurement and for a taking pills</string>
     <string name="add_new_alarm">Add new alarm</string>
-    <string name="measure_pressure">For pressure measurement</string>
-    <string name="take_pills">For taking pills</string>
+    <string name="measure_pressure">Measurement</string>
+    <string name="take_pills">Taking pills</string>
     <string name="save_new_alarm">Save new alarm</string>
     <string name="error_message_for_add_alarm">Choose one or both reasons for the alarm!</string>
     <string name="text_of_notification">Time to measure a blood pressure and take pills!</string>
