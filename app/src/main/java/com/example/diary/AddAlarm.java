@@ -79,20 +79,12 @@ public class AddAlarm extends AppCompatActivity {
             }
         });
 
-        //save the time for new alarm event
-        event.timeOfAlarm = chooseTime.getText().toString();
-
-        //create or open the database
-        final AlarmDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AlarmDatabase.class, "AlarmEvents")
-                .build();
-
         //save button on the toolbar
         final ImageButton saveAlarm = findViewById(R.id.save_alarm);
         saveAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveAlarm(db, event, calendar);
+                saveAlarm(event, calendar, chooseTime);
             }
         });
 
@@ -101,27 +93,37 @@ public class AddAlarm extends AppCompatActivity {
         saveAlarmBelow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveAlarm(db, event, calendar);
+                saveAlarm(event, calendar, chooseTime);
             }
         });
     }
 
     //check and save new alarm in the database
-    public void saveAlarm(final AlarmDatabase db, final AlarmEvents event, final Calendar calendar) {
+    public void saveAlarm(final AlarmEvents event, final Calendar calendar, final EditText time) {
         //check if an user checked one of CheckBoxes
+
         //if no - to show an error message
         if ((!event.measurement) && (!event.pills)) {
             Context context = getApplicationContext();
             Toast toast = Toast.makeText(context, getString(R.string.error_message_for_add_alarm), Toast.LENGTH_SHORT);
             toast.show();
+
         //if yes - to save new event in the database
         } else {
+            //save the time for new alarm event
+            event.timeOfAlarm = time.getText().toString();
+
+            //create or open the database
+            final AlarmDatabase db = Room.databaseBuilder(getApplicationContext(),
+                    AlarmDatabase.class, "AlarmEvents")
+                    .build();
             AsyncTask.execute(new Runnable() {
                 @Override
                 public void run() {
                     db.alarmDao().insert(event);
                 }
             });
+
             //close the database
             db.close();
 
