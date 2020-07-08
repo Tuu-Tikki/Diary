@@ -84,7 +84,17 @@ public class AddAlarm extends AppCompatActivity {
         saveAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveAlarm(event, calendar, chooseTime);
+                boolean isSaved = saveAlarm(event, chooseTime);
+
+                if (isSaved) {
+                    AsyncTask.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            Context context = getApplicationContext();
+                            setAlarm(context, getLastRecord());
+                        }
+                    });
+                }
             }
         });
 
@@ -93,13 +103,23 @@ public class AddAlarm extends AppCompatActivity {
         saveAlarmBelow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveAlarm(event, calendar, chooseTime);
+                boolean isSaved = saveAlarm(event, chooseTime);
+
+                if (isSaved) {
+                    AsyncTask.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            Context context = getApplicationContext();
+                            setAlarm(context, getLastRecord());
+                        }
+                    });
+                }
             }
         });
     }
 
-    //check and save new alarm in the database
-    public void saveAlarm(final AlarmEvents event, final Calendar calendar, final EditText time) {
+    //check and save new alarm in the database and return true if new alarm created
+    public boolean saveAlarm(final AlarmEvents event, final EditText time) {
         //check if an user checked one of CheckBoxes
 
         //if no - to show an error message
@@ -107,6 +127,8 @@ public class AddAlarm extends AppCompatActivity {
             Context context = getApplicationContext();
             Toast toast = Toast.makeText(context, getString(R.string.error_message_for_add_alarm), Toast.LENGTH_SHORT);
             toast.show();
+
+            return false;
 
         //if yes - to save new event in the database
         } else {
@@ -127,15 +149,41 @@ public class AddAlarm extends AppCompatActivity {
             //close the database
             db.close();
 
-            //initialize AlarmManager and create Intent for AlarmReceiver.class
-            final AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-            Context context = getApplicationContext();
-            final Intent intentForAlarmReceiver = new Intent(context, AlarmReceiver.class);
-            final PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intentForAlarmReceiver, 0);
-            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-
             //return to Alarm and Notification
             navigateUpTo(new Intent(AddAlarm.this, AlarmAndNotification.class));
+
+            return true;
         }
+    }
+
+    //initialize AlarmManager and create Intent for AlarmReceiver.class
+    public static void setAlarm(Context context, AlarmEvents event) {
+        final AlarmManager alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
+        final Intent intentForAlarmReceiver = new Intent(context, AlarmReceiver.class);
+        final int requestCode = event.alarmEventId;
+        final PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode, intentForAlarmReceiver, 0);
+
+        //get time from database record to calendar
+        final Calendar calendar = Calendar.getInstance();
+        final int hour = Integer.parseInt(event.timeOfAlarm.substring(0, 2));
+        final int minute = Integer.parseInt(event.timeOfAlarm.substring(3));
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+
+        //set alarm
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        }
+        else {
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 86400000, pendingIntent);
+        }
+    }
+
+    public AlarmEvents getLastRecord() {
+        final AlarmDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AlarmDatabase.class, "AlarmEvents")
+                .build();
+
+        return db.alarmDao().getLast();
     }
 }

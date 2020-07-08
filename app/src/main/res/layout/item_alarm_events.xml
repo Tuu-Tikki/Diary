@@ -72,4 +72,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/btn_dialog" />
 
+    <TextView
+        android:id="@+id/border"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/table_border"
+        android:layout_marginTop="32dp"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/is_pills_true" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
