@@ -1,6 +1,9 @@
 package com.example.diary;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,6 +84,18 @@ public class AdapterForAlarmEvents extends
                     }
                 });
 
+                //cancel the corresponding alarm
+                Context context = deleteButton.getContext();
+                AlarmManager alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
+                int requestCode = event.alarmEventId;
+                final Intent intentForAlarmReceiver = new Intent(context, AlarmReceiver.class);
+                intentForAlarmReceiver.putExtra("RequestCode", requestCode);
+                final PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode,
+                        intentForAlarmReceiver, 0);
+                pendingIntent.cancel();
+                alarmManager.cancel(pendingIntent);
+
+                //update the list of events for RecyclerView
                 displayedEvents.remove(position);
                 notifyItemRemoved(position);
                 notifyItemRangeChanged(position, displayedEvents.size());

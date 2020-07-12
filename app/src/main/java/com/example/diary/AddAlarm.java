@@ -159,10 +159,11 @@ public class AddAlarm extends AppCompatActivity {
     //initialize AlarmManager and create Intent for AlarmReceiver.class
     public static void setAlarm(Context context, AlarmEvents event) {
         final AlarmManager alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
-        final Intent intentForAlarmReceiver = new Intent(context, AlarmReceiver.class);
         final int requestCode = event.alarmEventId;
-        final PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode, intentForAlarmReceiver, 0);
-
+        final Intent intentForAlarmReceiver = new Intent(context, AlarmReceiver.class);
+        intentForAlarmReceiver.putExtra("RequestCode", requestCode);
+        final PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode,
+                intentForAlarmReceiver, 0);
         //get time from database record to calendar
         final Calendar calendar = Calendar.getInstance();
         final int hour = Integer.parseInt(event.timeOfAlarm.substring(0, 2));

@@ -14,6 +14,9 @@ public interface AlarmDao {
     @Query("SELECT * FROM AlarmEvents WHERE alarmEventId = (SELECT MAX(alarmEventId) FROM AlarmEvents)")
     AlarmEvents getLast();
 
+    @Query("SELECT * FROM AlarmEvents WHERE alarmEventId = :id")
+    public AlarmEvents getEventById(int id);
+
     @Insert
     void insert(AlarmEvents event);
 
