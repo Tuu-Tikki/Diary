@@ -6,15 +6,16 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.media.AudioAttributes;
+import android.net.Uri;
 import android.os.Build;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
-import androidx.room.Room;
 
 import java.util.Calendar;
 
@@ -37,8 +38,23 @@ public class AlarmReceiver extends BroadcastReceiver {
                     context.getString(R.string.channel_name),
                     NotificationManager.IMPORTANCE_HIGH);
             channel.setDescription(context.getString(R.string.channel_description));
+
+            //add a sound
+            AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                    .build();
+            Uri soundUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
+                    "://"+ context.getPackageName() + "/" + R.raw.done);
+            channel.setSound(soundUri, audioAttributes);
+
             notificationManager.createNotificationChannel(channel);
         }
+
+        // Create an explicit intent for an Activity in your app
+        Intent notificationIntent = new Intent(context, MainActivity.class);
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent notificationPendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 
         //making notification with certain parameters. PRIORITY_HIGH is for show the notification over the working app
         //and VISIBILITY_PUBLIC show full notification on lock-screen
@@ -50,8 +66,12 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .setContentText(context.getString(R.string.text_of_notification))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                .setAutoCancel(true)
-                .setDefaults(Notification.DEFAULT_SOUND);
+                .setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
+                        "://"+ context.getPackageName() + "/" + R.raw.done))
+                // Set the intent that will fire when the user taps the notification
+                .setContentIntent(notificationPendingIntent)
+                .setAutoCancel(true);
+               // .setDefaults(Notification.DEFAULT_SOUND);
 
         Notification notification = builder.build();
 
