@@ -10,6 +10,8 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.widget.Toast;
@@ -29,26 +31,17 @@ public class AlarmReceiver extends BroadcastReceiver {
         // this String is necessary for the constructor NotificationCompat, so the notifications work with API 26+
         final String CHANNEL_ID = "DIARY_ALARM_CHANNEL";
 
-        //Class to notify the user of events that happen
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        //Sound for notification
+        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-        //create a notification channel for API 26+
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
-                    context.getString(R.string.channel_name),
-                    NotificationManager.IMPORTANCE_HIGH);
-            channel.setDescription(context.getString(R.string.channel_description));
-
-            //add a sound
-            AudioAttributes audioAttributes = new AudioAttributes.Builder()
+        //A class to encapsulate a collection of attributes describing information about an audio stream
+        AudioAttributes audioAttributes = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    audioAttributes = new AudioAttributes.Builder()
                     .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
                     .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                    .setFlags(AudioAttributes.FLAG_AUDIBILITY_ENFORCED)
                     .build();
-            Uri soundUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
-                    "://"+ context.getPackageName() + "/" + R.raw.done);
-            channel.setSound(soundUri, audioAttributes);
-
-            notificationManager.createNotificationChannel(channel);
         }
 
         // Create an explicit intent for an Activity in your app
@@ -59,38 +52,64 @@ public class AlarmReceiver extends BroadcastReceiver {
         //making notification with certain parameters. PRIORITY_HIGH is for show the notification over the working app
         //and VISIBILITY_PUBLIC show full notification on lock-screen
         //setAutoCancel(true) automatically delete a notification after an user taps it
-        //setDefaults(int defaults) set the sound for notification (API 11-26)
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_background)
                 .setContentTitle(context.getString(R.string.app_name))
                 .setContentText(context.getString(R.string.text_of_notification))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                .setSound(Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
-                        "://"+ context.getPackageName() + "/" + R.raw.done))
+                .setSound(soundUri)
                 // Set the intent that will fire when the user taps the notification
                 .setContentIntent(notificationPendingIntent)
                 .setAutoCancel(true);
-               // .setDefaults(Notification.DEFAULT_SOUND);
+
+        //Class to notify the user of events that happen
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        //create a notification channel for API 26+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
+                    context.getString(R.string.channel_name),
+                    NotificationManager.IMPORTANCE_HIGH);
+            channel.setDescription(context.getString(R.string.channel_description));
+
+            //add a sound
+            channel.setSound(soundUri, audioAttributes);
+
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(channel);
+            }
+        }
 
         Notification notification = builder.build();
+
+        //try to make sound
+        notification.sound = soundUri;
+        notification.audioStreamType = AudioManager.STREAM_NOTIFICATION;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            notification.audioAttributes = audioAttributes;
+        }
 
         //get requestCode from extra
         final int requestCode = intent.getIntExtra("RequestCode", -1);
 
         //show the notification
-        notificationManager.notify(requestCode, notification);
+        if (notificationManager != null) {
+            notificationManager.notify(requestCode, notification);
+        }
 
         //repeat alarm for API >= 19
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (requestCode != -1) {
-                final AlarmManager alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
+                final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                 final Intent intentForAlarmReceiver = new Intent(context, AlarmReceiver.class);
                 intentForAlarmReceiver.putExtra("RequestCode", requestCode);
                 final PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode,
                         intentForAlarmReceiver, 0);
                 final Calendar calendar = Calendar.getInstance();
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis()+86400000, pendingIntent);
+                if (alarmManager != null) {
+                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis()+86400000, pendingIntent);
+                }
             } else {
                 Toast toastForMissedCode = Toast.makeText(context,
                         context.getString(R.string.error_message_for_missed_requestCode), Toast.LENGTH_SHORT);

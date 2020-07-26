@@ -50,4 +50,5 @@ dependencies {
 
     //for using com.google.android.material.textfield.TextInputLayout
     implementation 'com.google.android.material:material:1.0.0-beta01'
+
 }
