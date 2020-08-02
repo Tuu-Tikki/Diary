@@ -6,18 +6,17 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 
 import java.util.Calendar;
 
@@ -33,6 +32,13 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         //Sound for notification
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        //make a sound with MediaPlayer
+        MediaPlayer mp = MediaPlayer.create(context, soundUri);
+        if (mp != null) {
+            mp.start();
+            //mp.release();
+        }
 
         //A class to encapsulate a collection of attributes describing information about an audio stream
         AudioAttributes audioAttributes = null;
