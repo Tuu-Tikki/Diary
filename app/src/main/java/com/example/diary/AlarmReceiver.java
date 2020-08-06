@@ -37,7 +37,14 @@ public class AlarmReceiver extends BroadcastReceiver {
         MediaPlayer mp = MediaPlayer.create(context, soundUri);
         if (mp != null) {
             mp.start();
-            //mp.release();
+            //release after use
+            mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    mp.release();
+                    mp = null;
+                }
+            });
         }
 
         //A class to encapsulate a collection of attributes describing information about an audio stream
@@ -89,12 +96,12 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         Notification notification = builder.build();
 
-        //try to make sound
+        /*try to make sound
         notification.sound = soundUri;
         notification.audioStreamType = AudioManager.STREAM_NOTIFICATION;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             notification.audioAttributes = audioAttributes;
-        }
+        }*/
 
         //get requestCode from extra
         final int requestCode = intent.getIntExtra("RequestCode", -1);
