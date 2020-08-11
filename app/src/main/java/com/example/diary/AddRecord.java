@@ -201,7 +201,7 @@ public class AddRecord extends AppCompatActivity {
         if (checkRecord(sPressure, dPressure, pulse)) {
             record.systolicPressure = Integer.parseInt(sPressure.getText().toString());
             record.diastolicPressure = Integer.parseInt(dPressure.getText().toString());
-            record.dateOfRecord = date.getText().toString();
+            record.dateOfRecord = dateToYearMonthDay(date.getText().toString());
             record.timeOfRecord = time.getText().toString();
             record.pulse = Integer.parseInt(pulse.getText().toString());
             AsyncTask.execute(new Runnable() {
@@ -219,5 +219,14 @@ public class AddRecord extends AppCompatActivity {
             Toast toast = Toast.makeText(context, getString(R.string.error_message), duration);
             toast.show();
         }
+    }
+
+    //change date in format day/month/year to format year/month/day
+    public String dateToYearMonthDay(String date) {
+        String reverseDate="";
+        reverseDate = date.substring(date.length()-4, date.length()) +
+                      date.substring(date.length()-8, date.length()-4) +
+                      date.substring(0, 2);
+        return reverseDate;
     }
 }

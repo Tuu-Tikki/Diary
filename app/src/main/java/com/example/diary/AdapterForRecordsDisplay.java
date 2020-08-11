@@ -55,7 +55,7 @@ public class AdapterForRecordsDisplay extends
         ViewHolder holder = (ViewHolder) viewHolder;
 
         TextView textViewDate = holder.dateTextView;
-        textViewDate.setText(record.dateOfRecord);
+        textViewDate.setText(dateToDayMonthYear(record.dateOfRecord));
         TextView textViewTime = holder.timeTextView;
         textViewTime.setText(record.timeOfRecord);
         TextView textViewPressure = holder.pressureTextView;
@@ -70,5 +70,14 @@ public class AdapterForRecordsDisplay extends
     @Override
     public int getItemCount() {
         return memberRecords.size();
+    }
+
+    //change date from year/month/day to day/month/year
+    public String dateToDayMonthYear(String date) {
+        String reverseDate = "";
+        reverseDate = date.substring(date.length()-2, date.length()) +
+                date.substring(date.length()-6, date.length()-2) +
+                date.substring(0, 4);
+        return reverseDate;
     }
 }
