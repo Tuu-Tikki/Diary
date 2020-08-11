@@ -12,12 +12,14 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -53,6 +55,12 @@ public class AddAlarm extends AppCompatActivity {
                 chooseTime.setText(timeFormat.format(calendar.getTime()));
             }
         };
+
+        //start TimePickerDialog with start of the activity
+        new TimePickerDialog(AddAlarm.this, timeFromPicker, calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE), true).show();
+
+        //or start TimePickerDialog with click on the time field
         chooseTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,28 +72,15 @@ public class AddAlarm extends AppCompatActivity {
         //declare variable to save new alarm event
         final AlarmEvents event = new AlarmEvents();
 
-        //save CheckBoxes condition
-        final CheckBox measurement = findViewById(R.id.measure_pressure_alarm);
-        final CheckBox pills = findViewById(R.id.taking_pills_alarm);
-        measurement.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                event.measurement = isChecked;
-            }
-        });
-        pills.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                event.pills = isChecked;
-            }
-        });
+        //Switch variable
+        final Switch typeOfAlarm = findViewById(R.id.measure_or_pills);
 
         //save button on the toolbar
         final ImageButton saveAlarm = findViewById(R.id.save_alarm);
         saveAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean isSaved = saveAlarm(event, chooseTime);
+                boolean isSaved = saveAlarm(event, chooseTime, typeOfAlarm);
 
                 if (isSaved) {
                     AsyncTask.execute(new Runnable() {
@@ -104,7 +99,7 @@ public class AddAlarm extends AppCompatActivity {
         saveAlarmBelow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean isSaved = saveAlarm(event, chooseTime);
+                boolean isSaved = saveAlarm(event, chooseTime, typeOfAlarm);
 
                 if (isSaved) {
                     AsyncTask.execute(new Runnable() {
@@ -119,42 +114,36 @@ public class AddAlarm extends AppCompatActivity {
         });
     }
 
-    //check and save new alarm in the database and return true if new alarm created
-    public boolean saveAlarm(final AlarmEvents event, final EditText time) {
-        //check if an user checked one of CheckBoxes
-
-        //if no - to show an error message
-        if ((!event.measurement) && (!event.pills)) {
-            Context context = getApplicationContext();
-            Toast toast = Toast.makeText(context, getString(R.string.error_message_for_add_alarm), Toast.LENGTH_SHORT);
-            toast.show();
-
-            return false;
-
-        //if yes - to save new event in the database
+    //save new alarm in the database and return true if new alarm created
+    public boolean saveAlarm(final AlarmEvents event, final EditText time, final Switch type) {
+        //check the switch for type of alarm
+        if (type.isChecked()) {
+            event.pills = type.isChecked();
         } else {
-            //save the time for new alarm event
-            event.timeOfAlarm = time.getText().toString();
-
-            //create or open the database
-            final AlarmDatabase db = Room.databaseBuilder(getApplicationContext(),
-                    AlarmDatabase.class, "AlarmEvents")
-                    .build();
-            AsyncTask.execute(new Runnable() {
-                @Override
-                public void run() {
-                    db.alarmDao().insert(event);
-                }
-            });
-
-            //close the database
-            db.close();
-
-            //return to Alarm and Notification
-            navigateUpTo(new Intent(AddAlarm.this, AlarmAndNotification.class));
-
-            return true;
+            event.measurement = !type.isChecked();
         }
+
+        //save the time for new alarm event
+        event.timeOfAlarm = time.getText().toString();
+
+        //create or open the database
+        final AlarmDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AlarmDatabase.class, "AlarmEvents")
+                .build();
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                db.alarmDao().insert(event);
+            }
+        });
+
+        //close the database
+        db.close();
+
+        //return to Alarm and Notification
+        navigateUpTo(new Intent(AddAlarm.this, AlarmAndNotification.class));
+
+        return true;
     }
 
     //initialize AlarmManager and create Intent for AlarmReceiver.class

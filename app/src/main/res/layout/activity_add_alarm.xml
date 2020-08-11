@@ -38,8 +38,6 @@
         android:id="@+id/add_time_for_alarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/standard_margin"
-        android:layout_marginLeft="@dimen/standard_margin"
         android:layout_marginTop="32dp"
         android:clickable="false"
         android:focusable="false"
@@ -47,45 +45,38 @@
         android:importantForAutofill="no"
         android:inputType="time"
         android:textSize="@dimen/button_font_size"
-        app:layout_constraintStart_toEndOf="@+id/measure_pressure_alarm"
-        app:layout_constraintTop_toBottomOf="@+id/add_alarm_toolbar" />
-
-    <CheckBox
-        android:id="@+id/measure_pressure_alarm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/standard_margin"
-        android:layout_marginLeft="@dimen/standard_margin"
-        android:layout_marginTop="@dimen/standard_margin"
-        android:layout_marginRight="@dimen/standard_margin"
-        android:text="@string/measure_pressure"
-        android:textSize="@dimen/button_font_size"
-        app:layout_constraintEnd_toStartOf="@id/add_time_for_alarm"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_alarm_toolbar" />
-
-    <CheckBox
-        android:id="@+id/taking_pills_alarm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/standard_margin"
-        android:layout_marginLeft="@dimen/standard_margin"
-        android:layout_marginTop="@dimen/standard_margin"
-        android:text="@string/take_pills"
-        android:textSize="@dimen/button_font_size"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/measure_pressure_alarm" />
 
     <Button
         android:id="@+id/alarm_save_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/standard_margin"
+        android:layout_marginBottom="@dimen/button_constraints"
         android:text="@string/save_button"
+        android:textSize="@dimen/button_font_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="@string/save_button" />
+
+    <Switch
+        android:id="@+id/measure_or_pills"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/standard_margin"
+        android:layout_marginLeft="@dimen/standard_margin"
+        android:layout_marginTop="@dimen/button_constraints"
+        android:layout_marginEnd="@dimen/standard_margin"
+        android:layout_marginRight="@dimen/standard_margin"
+        android:text="Type of alarm"
+        android:textAllCaps="false"
+        android:textOff="@string/measure_pressure"
+        android:textOn="@string/take_pills"
         android:textSize="@dimen/button_font_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/taking_pills_alarm"
-        tools:text="@string/save_button" />
+        app:layout_constraintTop_toBottomOf="@+id/add_time_for_alarm" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

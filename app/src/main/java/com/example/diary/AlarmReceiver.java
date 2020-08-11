@@ -96,13 +96,6 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         Notification notification = builder.build();
 
-        /*try to make sound
-        notification.sound = soundUri;
-        notification.audioStreamType = AudioManager.STREAM_NOTIFICATION;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            notification.audioAttributes = audioAttributes;
-        }*/
-
         //get requestCode from extra
         final int requestCode = intent.getIntExtra("RequestCode", -1);
 
